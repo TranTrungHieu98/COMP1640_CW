@@ -53,7 +53,6 @@ namespace COMP1640_CW.Controllers
         }
 
         //
-        //
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
