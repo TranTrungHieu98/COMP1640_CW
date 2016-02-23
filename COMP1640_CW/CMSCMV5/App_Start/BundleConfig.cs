@@ -26,26 +26,6 @@ namespace CMSCMV5
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
-
-            bundles.Add(new StyleBundle("~/bundles/css").Include(
-                     "~/Content/css/bootstrap1.css",
-                     "~/Content/css/bootstrap-responsive.css",
-                     "~/Content/css/camera.css",
-                     "~/Content/css/style.css",
-                     "~/Content/fonts/font-awesome.min.css"));
-
-            bundles.Add(new ScriptBundle("~/bundles/js").Include(
-                      "~/Scripts/js/jquery.js",
-                      "~/Scripts/js/jquery.easing.1.3.js",
-                      "~/Scripts/js/superfish.js",
-                      "~/Scripts/js/jquery.ui.totop.js",
-                      "~/Scripts/js/camera.js",
-                      "~/Scripts/js/jquery.mobile.customized.min.js",
-                      "~/Scripts/js/jquery.touchSwipe.min.js",
-                      "~/Scripts/js/script.js",
-                      "~/Scripts/js/jquery.caroufredsel.js",
-                      "~/Scripts/js/bootstrap1.js"));
-
             
         }
     }
