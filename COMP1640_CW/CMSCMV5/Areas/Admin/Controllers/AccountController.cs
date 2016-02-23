@@ -26,7 +26,7 @@ namespace CMSCMV5.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (var db = new DAO.CatBaStationEntities())
+                using (var db = new DAO.Entities())
                 {
                     var passHas = CoreFunction.GetMd5Hash(model.pass);
                     var accountData = db.asp_User.FirstOrDefault(x => x.account == model.acc && x.password == passHas);

@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'E:\SkyDrive\CMSCMV5\CMSCMV5\DAO\ModelEntity.edmx'. 
+﻿// T4 code generation is enabled for model 'G:\Users\Thanhappdev\Documents\COMP1640_CW\COMP1640_CW\CMSCMV5\DAO\DbModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

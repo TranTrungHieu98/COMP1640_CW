@@ -14,7 +14,7 @@ namespace CMSCMV5.Areas.Admin.Controllers
 
         public ActionResult ListGroup(int id = 0)
         {
-            using (var db = new CatBaStationEntities())
+            using (var db = new Entities())
             {
                 var data = db.asp_Group.ToList();
                 if (id == 0 && data.Count > 0)
@@ -29,7 +29,7 @@ namespace CMSCMV5.Areas.Admin.Controllers
         [ChildActionOnly]
         public ActionResult Group(int id = 0)
         {
-            using (var db = new CatBaStationEntities())
+            using (var db = new Entities())
             {
                 var model = new CreateGroupModel();
                 model.roles = db.asp_Role.Select(x => new RoleData { name = x.name, description = x.description }).ToList();
@@ -56,7 +56,7 @@ namespace CMSCMV5.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (var db = new CatBaStationEntities())
+                using (var db = new Entities())
                 {
                     var data = db.asp_Group.FirstOrDefault(x => x.id == model.id);
                     if (data == null)
@@ -128,7 +128,7 @@ namespace CMSCMV5.Areas.Admin.Controllers
 
         public ActionResult DeleteGroup(int id = 0)
         {
-            using (var db = new CatBaStationEntities())
+            using (var db = new Entities())
             {
                 var data = db.asp_Group.FirstOrDefault(x => x.id == id);
                 if (data != null)
@@ -153,7 +153,7 @@ namespace CMSCMV5.Areas.Admin.Controllers
 
         public ActionResult ListAccount(string id)
         {
-            using (var db = new CatBaStationEntities())
+            using (var db = new Entities())
             {
                 var data = db.asp_User.ToList();
                 if (string.IsNullOrEmpty(id) && data.Count > 0)
@@ -173,7 +173,7 @@ namespace CMSCMV5.Areas.Admin.Controllers
         [ChildActionOnly]
         public ActionResult Account(string id)
         {
-            using (var db = new CatBaStationEntities())
+            using (var db = new Entities())
             {
                 var model = new CreateAccountModel();
                 model.groups = db.asp_Group.Select(x => new GroupData { id = x.id, name = x.name, description = x.description }).ToList();
@@ -202,7 +202,7 @@ namespace CMSCMV5.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (var db = new CatBaStationEntities())
+                using (var db = new Entities())
                 {
                     var data = db.asp_User.FirstOrDefault(x => x.account == model.account);
                     if (data == null)
@@ -284,7 +284,7 @@ namespace CMSCMV5.Areas.Admin.Controllers
 
         public ActionResult DeleteAccount(string id = "0")
         {
-            using (var db = new CatBaStationEntities())
+            using (var db = new Entities())
             {
                 var data = db.asp_User.FirstOrDefault(x => x.account == id);
                 if (data != null)

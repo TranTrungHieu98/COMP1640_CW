@@ -182,7 +182,6 @@
     <Compile Include="Areas\Admin\Controllers\ManagerRoleController.cs" />
     <Compile Include="Areas\Admin\Models\BanerModel.cs" />
     <Compile Include="Areas\Admin\Models\LoginModel.cs" />
-    <Compile Include="Areas\Admin\Models\MailModel.cs" />
     <Compile Include="Areas\Admin\Models\ManagerRoleModel.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Models\CommentModel.cs" />
@@ -197,73 +196,28 @@
     <Compile Include="Common\UserDetail.cs" />
     <Compile Include="CustomRoleProvider.cs" />
     <Compile Include="DAO\asp_Group.cs">
-      <DependentUpon>ModelEntity.tt</DependentUpon>
+      <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAO\asp_Role.cs">
-      <DependentUpon>ModelEntity.tt</DependentUpon>
+      <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAO\asp_User.cs">
-      <DependentUpon>ModelEntity.tt</DependentUpon>
+      <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAO\BookTour.cs">
-      <DependentUpon>ModelEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\CategoriOther.cs">
-      <DependentUpon>ModelEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\Comment.cs">
-      <DependentUpon>ModelEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\ForMe.cs">
-      <DependentUpon>ModelEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\GioiThieuChung.cs">
-      <DependentUpon>ModelEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\Help.cs">
-      <DependentUpon>ModelEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\InformationBook.cs">
-      <DependentUpon>ModelEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\ModelEntity.Context.cs">
+    <Compile Include="DAO\DbModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelEntity.Context.tt</DependentUpon>
+      <DependentUpon>DbModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAO\ModelEntity.cs">
+    <Compile Include="DAO\DbModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelEntity.tt</DependentUpon>
+      <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAO\ModelEntity.Designer.cs">
+    <Compile Include="DAO\DbModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelEntity.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\New.cs">
-      <DependentUpon>ModelEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\OderTour.cs">
-      <DependentUpon>ModelEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\Phonto.cs">
-      <DependentUpon>ModelEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\PhotoForTour.cs">
-      <DependentUpon>ModelEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\SceduTour.cs">
-      <DependentUpon>ModelEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\Setting.cs">
-      <DependentUpon>ModelEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\SlideBaner.cs">
-      <DependentUpon>ModelEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\Tour.cs">
-      <DependentUpon>ModelEntity.tt</DependentUpon>
+      <DependentUpon>DbModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="ErrorApi.cs" />
     <Compile Include="ErrorWeb.cs" />
@@ -1455,6 +1409,16 @@
     <Content Include="Content\fonts\font-awesome.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="DAO\DB.sql" />
+    <Content Include="DAO\DbModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DbModel.edmx</DependentUpon>
+      <LastGenOutput>DbModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DAO\DbModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DbModel.edmx</DependentUpon>
+      <LastGenOutput>DbModel.cs</LastGenOutput>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
@@ -1525,23 +1489,6 @@
     <Content Include="Areas\Site\Views\Shared\Error.cshtml" />
     <Content Include="Areas\Site\Views\_ViewStart.cshtml" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
-    <EntityDeploy Include="DAO\ModelEntity.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelEntity.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="DAO\ModelEntity.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelEntity.edmx</DependentUpon>
-      <LastGenOutput>ModelEntity.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="DAO\ModelEntity.edmx.diagram">
-      <DependentUpon>ModelEntity.edmx</DependentUpon>
-    </Content>
-    <Content Include="DAO\ModelEntity.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelEntity.edmx</DependentUpon>
-      <LastGenOutput>ModelEntity.cs</LastGenOutput>
-    </Content>
     <Content Include="Areas\Admin\Views\HomeDesign\ListSlide.cshtml" />
     <Content Include="Areas\Admin\Views\HomeDesign\Slide.cshtml" />
     <Content Include="Areas\Admin\Views\HomeDesign\Logo.cshtml" />
@@ -1589,6 +1536,13 @@
     <Content Include="fonts\ionicons.ttf" />
     <Content Include="fonts\ionicons.woff" />
     <Content Include="Areas\Admin\Views\Shared\Error.cshtml" />
+    <EntityDeploy Include="DAO\DbModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DbModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="DAO\DbModel.edmx.diagram">
+      <DependentUpon>DbModel.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\cabaCTY.pubxml" />
     <None Include="Properties\PublishProfiles\cabatHome.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
