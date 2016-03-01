@@ -10,6 +10,11 @@
         <EntityTypeShape EntityType="DBModel.asp_User" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
         <AssociationConnector Association="DBModel.asp_Group_Role" ManuallyRouted="false" />
         <AssociationConnector Association="DBModel.asp_User_Group" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DBModel.Class" Width="1.5" PointX="5.375" PointY="5.5" />
+        <EntityTypeShape EntityType="DBModel.Course" Width="1.5" PointX="7.625" PointY="1" />
+        <EntityTypeShape EntityType="DBModel.Instructor" Width="1.5" PointX="5.375" PointY="1.625" />
+        <AssociationConnector Association="DBModel.FK_course_Classs" />
+        <AssociationConnector Association="DBModel.FK_Course_instructor" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

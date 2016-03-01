@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="asp_Group">
           <Key>
             <PropertyRef Name="id" />
@@ -47,7 +47,42 @@
           <Property Name="userid" Type="nvarchar" MaxLength="32" Nullable="false" />
           <Property Name="groupid" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK__asp_Group__group__1920BF5C">
+        <EntityType Name="Class">
+          <Key>
+            <PropertyRef Name="IDClass" />
+          </Key>
+          <Property Name="IDClass" Type="int" Nullable="false" />
+          <Property Name="Subject" Type="varchar" MaxLength="45" />
+          <Property Name="Course" Type="varchar" MaxLength="45" />
+          <Property Name="Department" Type="varchar" MaxLength="45" />
+          <Property Name="Title" Type="varchar" MaxLength="45" />
+          <Property Name="Description" Type="text" />
+        </EntityType>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="IDCourse" />
+          </Key>
+          <Property Name="IDCourse" Type="int" Nullable="false" />
+          <Property Name="cm" Type="varbinary" MaxLength="45" />
+          <Property Name="class_IDclass" Type="int" />
+          <Property Name="Dates" Type="varchar" MaxLength="45" />
+          <Property Name="Credits" Type="smallint" />
+          <Property Name="Days" Type="varchar" MaxLength="7" />
+          <Property Name="BTime" Type="time" Precision="7" />
+          <Property Name="ETime" Type="time" Precision="7" />
+          <Property Name="Location" Type="int" />
+          <Property Name="instructor" Type="int" />
+        </EntityType>
+        <EntityType Name="Instructor">
+          <Key>
+            <PropertyRef Name="IDInstructor" />
+          </Key>
+          <Property Name="IDInstructor" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="45" />
+          <Property Name="email" Type="varchar" MaxLength="45" />
+          <Property Name="url" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <Association Name="FK__asp_Group__group__35BCFE0A">
           <End Role="asp_Group" Type="Self.asp_Group" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -61,7 +96,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__asp_Group__roleN__182C9B23">
+        <Association Name="FK__asp_Group__roleN__36B12243">
           <End Role="asp_Role" Type="Self.asp_Role" Multiplicity="1" />
           <End Role="asp_Group_Role" Type="Self.asp_Group_Role" Multiplicity="*" />
           <ReferentialConstraint>
@@ -73,7 +108,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__asp_User___group__1CF15040">
+        <Association Name="FK__asp_User___group__37A5467C">
           <End Role="asp_Group" Type="Self.asp_Group" Multiplicity="1" />
           <End Role="asp_User_Group" Type="Self.asp_User_Group" Multiplicity="*" />
           <ReferentialConstraint>
@@ -85,7 +120,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__asp_User___useri__1BFD2C07">
+        <Association Name="FK__asp_User___useri__38996AB5">
           <End Role="asp_User" Type="Self.asp_User" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -99,31 +134,65 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_course_Classs">
+          <End Role="Class" Type="Self.Class" Multiplicity="0..1" />
+          <End Role="Course" Type="Self.Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="IDClass" />
+            </Principal>
+            <Dependent Role="Course">
+              <PropertyRef Name="class_IDclass" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Course_instructor">
+          <End Role="Instructor" Type="Self.Instructor" Multiplicity="0..1" />
+          <End Role="Course" Type="Self.Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instructor">
+              <PropertyRef Name="IDInstructor" />
+            </Principal>
+            <Dependent Role="Course">
+              <PropertyRef Name="instructor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DBModelStoreContainer">
           <EntitySet Name="asp_Group" EntityType="Self.asp_Group" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="asp_Group_Role" EntityType="Self.asp_Group_Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="asp_Role" EntityType="Self.asp_Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="asp_User" EntityType="Self.asp_User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="asp_User_Group" EntityType="Self.asp_User_Group" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__asp_Group__group__1920BF5C" Association="Self.FK__asp_Group__group__1920BF5C">
+          <EntitySet Name="Class" EntityType="Self.Class" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Instructor" EntityType="Self.Instructor" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__asp_Group__group__35BCFE0A" Association="Self.FK__asp_Group__group__35BCFE0A">
             <End Role="asp_Group" EntitySet="asp_Group" />
             <End Role="asp_Group_Role" EntitySet="asp_Group_Role" />
           </AssociationSet>
-          <AssociationSet Name="FK__asp_Group__roleN__182C9B23" Association="Self.FK__asp_Group__roleN__182C9B23">
+          <AssociationSet Name="FK__asp_Group__roleN__36B12243" Association="Self.FK__asp_Group__roleN__36B12243">
             <End Role="asp_Role" EntitySet="asp_Role" />
             <End Role="asp_Group_Role" EntitySet="asp_Group_Role" />
           </AssociationSet>
-          <AssociationSet Name="FK__asp_User___group__1CF15040" Association="Self.FK__asp_User___group__1CF15040">
+          <AssociationSet Name="FK__asp_User___group__37A5467C" Association="Self.FK__asp_User___group__37A5467C">
             <End Role="asp_Group" EntitySet="asp_Group" />
             <End Role="asp_User_Group" EntitySet="asp_User_Group" />
           </AssociationSet>
-          <AssociationSet Name="FK__asp_User___useri__1BFD2C07" Association="Self.FK__asp_User___useri__1BFD2C07">
+          <AssociationSet Name="FK__asp_User___useri__38996AB5" Association="Self.FK__asp_User___useri__38996AB5">
             <End Role="asp_User" EntitySet="asp_User" />
             <End Role="asp_User_Group" EntitySet="asp_User_Group" />
           </AssociationSet>
+          <AssociationSet Name="FK_course_Classs" Association="Self.FK_course_Classs">
+            <End Role="Class" EntitySet="Class" />
+            <End Role="Course" EntitySet="Course" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Course_instructor" Association="Self.FK_Course_instructor">
+            <End Role="Instructor" EntitySet="Instructor" />
+            <End Role="Course" EntitySet="Course" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -177,7 +246,81 @@
             <End Role="asp_Group" EntitySet="asp_Group" />
             <End Role="asp_User" EntitySet="asp_User" />
           </AssociationSet>
+          <EntitySet Name="Classes" EntityType="DBModel.Class" />
+          <EntitySet Name="Courses" EntityType="DBModel.Course" />
+          <EntitySet Name="Instructors" EntityType="DBModel.Instructor" />
+          <AssociationSet Name="FK_course_Classs" Association="DBModel.FK_course_Classs">
+            <End Role="Class" EntitySet="Classes" />
+            <End Role="Course" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Course_instructor" Association="DBModel.FK_Course_instructor">
+            <End Role="Instructor" EntitySet="Instructors" />
+            <End Role="Course" EntitySet="Courses" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Class">
+          <Key>
+            <PropertyRef Name="IDClass" />
+          </Key>
+          <Property Name="IDClass" Type="Int32" Nullable="false" />
+          <Property Name="Subject" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Course" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Department" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Courses" Relationship="DBModel.FK_course_Classs" FromRole="Class" ToRole="Course" />
+        </EntityType>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="IDCourse" />
+          </Key>
+          <Property Name="IDCourse" Type="Int32" Nullable="false" />
+          <Property Name="cm" Type="Binary" MaxLength="45" FixedLength="false" />
+          <Property Name="class_IDclass" Type="Int32" />
+          <Property Name="Dates" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Credits" Type="Int16" />
+          <Property Name="Days" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="BTime" Type="Time" Precision="7" />
+          <Property Name="ETime" Type="Time" Precision="7" />
+          <Property Name="Location" Type="Int32" />
+          <Property Name="instructor" Type="Int32" />
+          <NavigationProperty Name="Class" Relationship="DBModel.FK_course_Classs" FromRole="Course" ToRole="Class" />
+          <NavigationProperty Name="Instructor1" Relationship="DBModel.FK_Course_instructor" FromRole="Course" ToRole="Instructor" />
+        </EntityType>
+        <EntityType Name="Instructor">
+          <Key>
+            <PropertyRef Name="IDInstructor" />
+          </Key>
+          <Property Name="IDInstructor" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="url" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Courses" Relationship="DBModel.FK_Course_instructor" FromRole="Instructor" ToRole="Course" />
+        </EntityType>
+        <Association Name="FK_course_Classs">
+          <End Type="DBModel.Class" Role="Class" Multiplicity="0..1" />
+          <End Type="DBModel.Course" Role="Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="IDClass" />
+            </Principal>
+            <Dependent Role="Course">
+              <PropertyRef Name="class_IDclass" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Course_instructor">
+          <End Type="DBModel.Instructor" Role="Instructor" Multiplicity="0..1" />
+          <End Type="DBModel.Course" Role="Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instructor">
+              <PropertyRef Name="IDInstructor" />
+            </Principal>
+            <Dependent Role="Course">
+              <PropertyRef Name="instructor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -229,6 +372,44 @@
               <ScalarProperty Name="account" ColumnName="userid" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Classes">
+            <EntityTypeMapping TypeName="DBModel.Class">
+              <MappingFragment StoreEntitySet="Class">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="Course" ColumnName="Course" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="IDClass" ColumnName="IDClass" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="DBModel.Course">
+              <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="instructor" ColumnName="instructor" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="ETime" ColumnName="ETime" />
+                <ScalarProperty Name="BTime" ColumnName="BTime" />
+                <ScalarProperty Name="Days" ColumnName="Days" />
+                <ScalarProperty Name="Credits" ColumnName="Credits" />
+                <ScalarProperty Name="Dates" ColumnName="Dates" />
+                <ScalarProperty Name="class_IDclass" ColumnName="class_IDclass" />
+                <ScalarProperty Name="cm" ColumnName="cm" />
+                <ScalarProperty Name="IDCourse" ColumnName="IDCourse" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Instructors">
+            <EntityTypeMapping TypeName="DBModel.Instructor">
+              <MappingFragment StoreEntitySet="Instructor">
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="IDInstructor" ColumnName="IDInstructor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
