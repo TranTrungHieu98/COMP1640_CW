@@ -210,3 +210,12 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+PDF_Prototype/ConsoleApplication1.sln
+PDF_Prototype/ConsoleApplication1/App.config
+PDF_Prototype/ConsoleApplication1/CMR.cs
+PDF_Prototype/ConsoleApplication1/ConsoleApplication1.csproj
+PDF_Prototype/ConsoleApplication1/Coursework.cs
+PDF_Prototype/ConsoleApplication1/GradeDistributionData.cs
+PDF_Prototype/ConsoleApplication1/Program.cs
+PDF_Prototype/ConsoleApplication1/Properties/AssemblyInfo.cs
+PDF_Prototype/ConsoleApplication1/packages.config
