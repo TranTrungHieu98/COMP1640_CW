@@ -179,7 +179,6 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
-    <Compile Include="Areas\Admin\Controllers\CoursesController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManagerRoleController.cs" />
     <Compile Include="Areas\Admin\Controllers\ReportController.cs" />
     <Compile Include="Areas\Admin\Models\BanerModel.cs" />
@@ -227,7 +226,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DbModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="DAO\Instructor.cs">
+    <Compile Include="DAO\Grade.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAO\Profile.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAO\Report.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAO\Student.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ErrorApi.cs" />
@@ -1544,22 +1552,14 @@
     <Content Include="DAO\DbModel.edmx.diagram">
       <DependentUpon>DbModel.edmx</DependentUpon>
     </Content>
-    <Content Include="Areas\Admin\Views\Classes\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Classes\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Classes\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Classes\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Classes\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Courses\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Courses\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Courses\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Courses\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Courses\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Instructors\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Instructors\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Instructors\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Instructors\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Instructors\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Report\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\Details.cshtml" />
     <None Include="Properties\PublishProfiles\annamshop.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />

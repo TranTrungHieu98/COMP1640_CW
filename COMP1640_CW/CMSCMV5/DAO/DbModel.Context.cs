@@ -30,6 +30,9 @@ namespace CMSCMV5.DAO
         public virtual DbSet<asp_User> asp_User { get; set; }
         public virtual DbSet<Class> Classes { get; set; }
         public virtual DbSet<Course> Courses { get; set; }
-        public virtual DbSet<Instructor> Instructors { get; set; }
+        public virtual DbSet<Grade> Grades { get; set; }
+        public virtual DbSet<Profile> Profiles { get; set; }
+        public virtual DbSet<Report> Reports { get; set; }
+        public virtual DbSet<Student> Students { get; set; }
     }
 }

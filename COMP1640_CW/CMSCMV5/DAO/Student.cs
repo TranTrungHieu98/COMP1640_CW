@@ -12,20 +12,24 @@ namespace CMSCMV5.DAO
     using System;
     using System.Collections.Generic;
     
-    public partial class Instructor
+    public partial class Student
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Instructor()
+        public Student()
         {
-            this.Courses = new HashSet<Course>();
+            this.Grades = new HashSet<Grade>();
         }
     
-        public int IDInstructor { get; set; }
-        public string name { get; set; }
-        public string email { get; set; }
-        public string url { get; set; }
+        public int IDStudent { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Address { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public string account { get; set; }
     
+        public virtual asp_User asp_User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Course> Courses { get; set; }
+        public virtual ICollection<Grade> Grades { get; set; }
     }
 }

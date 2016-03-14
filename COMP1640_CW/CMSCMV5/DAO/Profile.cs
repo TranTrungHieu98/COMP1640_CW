@@ -12,15 +12,14 @@ namespace CMSCMV5.DAO
     using System;
     using System.Collections.Generic;
     
-    public partial class Class
+    public partial class Profile
     {
-        public int IDClass { get; set; }
-        public string Subject { get; set; }
-        public Nullable<int> CourseID { get; set; }
-        public string Department { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
+        public int ProfileID { get; set; }
+        public string account { get; set; }
+        public string fullname { get; set; }
+        public string phone { get; set; }
+        public string address { get; set; }
     
-        public virtual Course Course { get; set; }
+        public virtual asp_User asp_User { get; set; }
     }
 }

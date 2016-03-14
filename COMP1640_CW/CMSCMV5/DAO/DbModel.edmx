@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="description" Type="nvarchar" MaxLength="1024" />
           <Property Name="status" Type="int" Nullable="false" />
@@ -53,7 +53,7 @@
           </Key>
           <Property Name="IDClass" Type="int" Nullable="false" />
           <Property Name="Subject" Type="varchar" MaxLength="45" />
-          <Property Name="Course" Type="varchar" MaxLength="45" />
+          <Property Name="CourseID" Type="int" />
           <Property Name="Department" Type="varchar" MaxLength="45" />
           <Property Name="Title" Type="varchar" MaxLength="45" />
           <Property Name="Description" Type="text" />
@@ -62,27 +62,67 @@
           <Key>
             <PropertyRef Name="IDCourse" />
           </Key>
-          <Property Name="IDCourse" Type="int" Nullable="false" />
-          <Property Name="cm" Type="varbinary" MaxLength="45" />
-          <Property Name="class_IDclass" Type="int" />
+          <Property Name="IDCourse" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CMID" Type="nvarchar" MaxLength="32" />
           <Property Name="Dates" Type="varchar" MaxLength="45" />
-          <Property Name="Credits" Type="smallint" />
-          <Property Name="Days" Type="varchar" MaxLength="7" />
-          <Property Name="BTime" Type="time" Precision="7" />
-          <Property Name="ETime" Type="time" Precision="7" />
-          <Property Name="Location" Type="int" />
-          <Property Name="instructor" Type="int" />
+          <Property Name="Credits" Type="int" />
+          <Property Name="Days" Type="int" />
+          <Property Name="BTime" Type="datetime" />
+          <Property Name="ETime" Type="datetime" />
+          <Property Name="Location" Type="nvarchar" MaxLength="50" />
+          <Property Name="FID" Type="nvarchar" MaxLength="32" />
+          <Property Name="CLID" Type="nvarchar" MaxLength="32" />
         </EntityType>
-        <EntityType Name="Instructor">
+        <EntityType Name="Grade">
           <Key>
-            <PropertyRef Name="IDInstructor" />
+            <PropertyRef Name="GradeID" />
           </Key>
-          <Property Name="IDInstructor" Type="int" Nullable="false" />
-          <Property Name="name" Type="varchar" MaxLength="45" />
-          <Property Name="email" Type="varchar" MaxLength="45" />
-          <Property Name="url" Type="varchar" MaxLength="45" />
+          <Property Name="GradeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentGrade" Type="int" Nullable="false" />
+          <Property Name="CourseID" Type="int" Nullable="false" />
+          <Property Name="TotalScore" Type="int" />
+          <Property Name="GradeLetter" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <Association Name="FK__asp_Group__group__35BCFE0A">
+        <EntityType Name="Profile">
+          <Key>
+            <PropertyRef Name="ProfileID" />
+          </Key>
+          <Property Name="ProfileID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="account" Type="nvarchar" MaxLength="32" />
+          <Property Name="fullname" Type="nvarchar" MaxLength="50" />
+          <Property Name="phone" Type="nvarchar" MaxLength="11" />
+          <Property Name="address" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Report">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseID" Type="int" Nullable="false" />
+          <Property Name="Studentcount" Type="int" />
+          <Property Name="StatisticalData" Type="nvarchar(max)" />
+          <Property Name="GradeDistributionData" Type="nvarchar(max)" />
+          <Property Name="Status" Type="int" />
+          <Property Name="CLID" Type="nvarchar" MaxLength="32" />
+          <Property Name="CMID" Type="nvarchar" MaxLength="32" />
+          <Property Name="PVCID" Type="nvarchar" MaxLength="32" />
+          <Property Name="DLTID" Type="nvarchar" MaxLength="32" />
+          <Property Name="Created" Type="datetime" />
+          <Property Name="Modified" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="IDStudent" />
+          </Key>
+          <Property Name="IDStudent" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="account" Type="nvarchar" MaxLength="32" />
+        </EntityType>
+        <Association Name="FK__asp_Group__group__22AA2996">
           <End Role="asp_Group" Type="Self.asp_Group" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -96,7 +136,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__asp_Group__roleN__36B12243">
+        <Association Name="FK__asp_Group__roleN__239E4DCF">
           <End Role="asp_Role" Type="Self.asp_Role" Multiplicity="1" />
           <End Role="asp_Group_Role" Type="Self.asp_Group_Role" Multiplicity="*" />
           <ReferentialConstraint>
@@ -108,7 +148,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__asp_User___group__37A5467C">
+        <Association Name="FK__asp_User___group__24927208">
           <End Role="asp_Group" Type="Self.asp_Group" Multiplicity="1" />
           <End Role="asp_User_Group" Type="Self.asp_User_Group" Multiplicity="*" />
           <ReferentialConstraint>
@@ -120,7 +160,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__asp_User___useri__38996AB5">
+        <Association Name="FK__asp_User___useri__25869641">
           <End Role="asp_User" Type="Self.asp_User" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -134,27 +174,147 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_course_Classs">
-          <End Role="Class" Type="Self.Class" Multiplicity="0..1" />
-          <End Role="Course" Type="Self.Course" Multiplicity="*" />
+        <Association Name="FK_Class_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="0..1" />
+          <End Role="Class" Type="Self.Class" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Class">
-              <PropertyRef Name="IDClass" />
+            <Principal Role="Course">
+              <PropertyRef Name="IDCourse" />
             </Principal>
-            <Dependent Role="Course">
-              <PropertyRef Name="class_IDclass" />
+            <Dependent Role="Class">
+              <PropertyRef Name="CourseID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Course_instructor">
-          <End Role="Instructor" Type="Self.Instructor" Multiplicity="0..1" />
+        <Association Name="FK_Course_asp_User">
+          <End Role="asp_User" Type="Self.asp_User" Multiplicity="0..1" />
           <End Role="Course" Type="Self.Course" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Instructor">
-              <PropertyRef Name="IDInstructor" />
+            <Principal Role="asp_User">
+              <PropertyRef Name="account" />
             </Principal>
             <Dependent Role="Course">
-              <PropertyRef Name="instructor" />
+              <PropertyRef Name="CMID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Course_asp_User1">
+          <End Role="asp_User" Type="Self.asp_User" Multiplicity="0..1" />
+          <End Role="Course" Type="Self.Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="asp_User">
+              <PropertyRef Name="account" />
+            </Principal>
+            <Dependent Role="Course">
+              <PropertyRef Name="CLID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Course_asp_User2">
+          <End Role="asp_User" Type="Self.asp_User" Multiplicity="0..1" />
+          <End Role="Course" Type="Self.Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="asp_User">
+              <PropertyRef Name="account" />
+            </Principal>
+            <Dependent Role="Course">
+              <PropertyRef Name="FID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Grade_Course1">
+          <End Role="Course" Type="Self.Course" Multiplicity="1" />
+          <End Role="Grade" Type="Self.Grade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="IDCourse" />
+            </Principal>
+            <Dependent Role="Grade">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Grade_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="Grade" Type="Self.Grade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="IDStudent" />
+            </Principal>
+            <Dependent Role="Grade">
+              <PropertyRef Name="StudentGrade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Profile_asp_User">
+          <End Role="asp_User" Type="Self.asp_User" Multiplicity="0..1" />
+          <End Role="Profile" Type="Self.Profile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="asp_User">
+              <PropertyRef Name="account" />
+            </Principal>
+            <Dependent Role="Profile">
+              <PropertyRef Name="account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Report_asp_User">
+          <End Role="asp_User" Type="Self.asp_User" Multiplicity="0..1" />
+          <End Role="Report" Type="Self.Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="asp_User">
+              <PropertyRef Name="account" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="CLID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Report_asp_User1">
+          <End Role="asp_User" Type="Self.asp_User" Multiplicity="0..1" />
+          <End Role="Report" Type="Self.Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="asp_User">
+              <PropertyRef Name="account" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="CMID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Report_asp_User2">
+          <End Role="asp_User" Type="Self.asp_User" Multiplicity="0..1" />
+          <End Role="Report" Type="Self.Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="asp_User">
+              <PropertyRef Name="account" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="PVCID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Report_asp_User3">
+          <End Role="asp_User" Type="Self.asp_User" Multiplicity="0..1" />
+          <End Role="Report" Type="Self.Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="asp_User">
+              <PropertyRef Name="account" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="DLTID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_asp_User">
+          <End Role="asp_User" Type="Self.asp_User" Multiplicity="0..1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="asp_User">
+              <PropertyRef Name="account" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="account" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -166,162 +326,428 @@
           <EntitySet Name="asp_User_Group" EntityType="Self.asp_User_Group" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Class" EntityType="Self.Class" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Instructor" EntityType="Self.Instructor" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__asp_Group__group__35BCFE0A" Association="Self.FK__asp_Group__group__35BCFE0A">
+          <EntitySet Name="Grade" EntityType="Self.Grade" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Profile" EntityType="Self.Profile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Report" EntityType="Self.Report" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__asp_Group__group__22AA2996" Association="Self.FK__asp_Group__group__22AA2996">
             <End Role="asp_Group" EntitySet="asp_Group" />
             <End Role="asp_Group_Role" EntitySet="asp_Group_Role" />
           </AssociationSet>
-          <AssociationSet Name="FK__asp_Group__roleN__36B12243" Association="Self.FK__asp_Group__roleN__36B12243">
+          <AssociationSet Name="FK__asp_Group__roleN__239E4DCF" Association="Self.FK__asp_Group__roleN__239E4DCF">
             <End Role="asp_Role" EntitySet="asp_Role" />
             <End Role="asp_Group_Role" EntitySet="asp_Group_Role" />
           </AssociationSet>
-          <AssociationSet Name="FK__asp_User___group__37A5467C" Association="Self.FK__asp_User___group__37A5467C">
+          <AssociationSet Name="FK__asp_User___group__24927208" Association="Self.FK__asp_User___group__24927208">
             <End Role="asp_Group" EntitySet="asp_Group" />
             <End Role="asp_User_Group" EntitySet="asp_User_Group" />
           </AssociationSet>
-          <AssociationSet Name="FK__asp_User___useri__38996AB5" Association="Self.FK__asp_User___useri__38996AB5">
+          <AssociationSet Name="FK__asp_User___useri__25869641" Association="Self.FK__asp_User___useri__25869641">
             <End Role="asp_User" EntitySet="asp_User" />
             <End Role="asp_User_Group" EntitySet="asp_User_Group" />
           </AssociationSet>
-          <AssociationSet Name="FK_course_Classs" Association="Self.FK_course_Classs">
+          <AssociationSet Name="FK_Class_Course" Association="Self.FK_Class_Course">
+            <End Role="Course" EntitySet="Course" />
             <End Role="Class" EntitySet="Class" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Course_asp_User" Association="Self.FK_Course_asp_User">
+            <End Role="asp_User" EntitySet="asp_User" />
             <End Role="Course" EntitySet="Course" />
           </AssociationSet>
-          <AssociationSet Name="FK_Course_instructor" Association="Self.FK_Course_instructor">
-            <End Role="Instructor" EntitySet="Instructor" />
+          <AssociationSet Name="FK_Course_asp_User1" Association="Self.FK_Course_asp_User1">
+            <End Role="asp_User" EntitySet="asp_User" />
             <End Role="Course" EntitySet="Course" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Course_asp_User2" Association="Self.FK_Course_asp_User2">
+            <End Role="asp_User" EntitySet="asp_User" />
+            <End Role="Course" EntitySet="Course" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Grade_Course1" Association="Self.FK_Grade_Course1">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="Grade" EntitySet="Grade" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Grade_Student" Association="Self.FK_Grade_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="Grade" EntitySet="Grade" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profile_asp_User" Association="Self.FK_Profile_asp_User">
+            <End Role="asp_User" EntitySet="asp_User" />
+            <End Role="Profile" EntitySet="Profile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Report_asp_User" Association="Self.FK_Report_asp_User">
+            <End Role="asp_User" EntitySet="asp_User" />
+            <End Role="Report" EntitySet="Report" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Report_asp_User1" Association="Self.FK_Report_asp_User1">
+            <End Role="asp_User" EntitySet="asp_User" />
+            <End Role="Report" EntitySet="Report" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Report_asp_User2" Association="Self.FK_Report_asp_User2">
+            <End Role="asp_User" EntitySet="asp_User" />
+            <End Role="Report" EntitySet="Report" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Report_asp_User3" Association="Self.FK_Report_asp_User3">
+            <End Role="asp_User" EntitySet="asp_User" />
+            <End Role="Report" EntitySet="Report" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_asp_User" Association="Self.FK_Student_asp_User">
+            <End Role="asp_User" EntitySet="asp_User" />
+            <End Role="Student" EntitySet="Student" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="asp_Group" EntityType="DBModel.asp_Group" />
+          <EntitySet Name="asp_Role" EntityType="DBModel.asp_Role" />
+          <EntitySet Name="asp_User" EntityType="DBModel.asp_User" />
+          <EntitySet Name="Classes" EntityType="DBModel.Class" />
+          <EntitySet Name="Courses" EntityType="DBModel.Course" />
+          <EntitySet Name="Grades" EntityType="DBModel.Grade" />
+          <EntitySet Name="Profiles" EntityType="DBModel.Profile" />
+          <EntitySet Name="Reports" EntityType="DBModel.Report" />
+          <EntitySet Name="Students" EntityType="DBModel.Student" />
+          <AssociationSet Name="FK_Course_asp_User" Association="DBModel.FK_Course_asp_User">
+            <End Role="asp_User" EntitySet="asp_User" />
+            <End Role="Course" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Course_asp_User1" Association="DBModel.FK_Course_asp_User1">
+            <End Role="asp_User" EntitySet="asp_User" />
+            <End Role="Course" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Course_asp_User2" Association="DBModel.FK_Course_asp_User2">
+            <End Role="asp_User" EntitySet="asp_User" />
+            <End Role="Course" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profile_asp_User" Association="DBModel.FK_Profile_asp_User">
+            <End Role="asp_User" EntitySet="asp_User" />
+            <End Role="Profile" EntitySet="Profiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Report_asp_User" Association="DBModel.FK_Report_asp_User">
+            <End Role="asp_User" EntitySet="asp_User" />
+            <End Role="Report" EntitySet="Reports" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Report_asp_User1" Association="DBModel.FK_Report_asp_User1">
+            <End Role="asp_User" EntitySet="asp_User" />
+            <End Role="Report" EntitySet="Reports" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Report_asp_User2" Association="DBModel.FK_Report_asp_User2">
+            <End Role="asp_User" EntitySet="asp_User" />
+            <End Role="Report" EntitySet="Reports" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Report_asp_User3" Association="DBModel.FK_Report_asp_User3">
+            <End Role="asp_User" EntitySet="asp_User" />
+            <End Role="Report" EntitySet="Reports" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_asp_User" Association="DBModel.FK_Student_asp_User">
+            <End Role="asp_User" EntitySet="asp_User" />
+            <End Role="Student" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Class_Course" Association="DBModel.FK_Class_Course">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="Class" EntitySet="Classes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Grade_Course1" Association="DBModel.FK_Grade_Course1">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="Grade" EntitySet="Grades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Grade_Student" Association="DBModel.FK_Grade_Student">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="Grade" EntitySet="Grades" />
+          </AssociationSet>
+          <AssociationSet Name="asp_Group_Role" Association="DBModel.asp_Group_Role">
+            <End Role="asp_Group" EntitySet="asp_Group" />
+            <End Role="asp_Role" EntitySet="asp_Role" />
+          </AssociationSet>
+          <AssociationSet Name="asp_User_Group" Association="DBModel.asp_User_Group">
+            <End Role="asp_Group" EntitySet="asp_Group" />
+            <End Role="asp_User" EntitySet="asp_User" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="asp_Group">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="description" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
           <Property Name="status" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="asp_Role" Relationship="Self.asp_Group_Role" FromRole="asp_Group" ToRole="asp_Role" />
-          <NavigationProperty Name="asp_User" Relationship="Self.asp_User_Group" FromRole="asp_Group" ToRole="asp_User" />
+          <NavigationProperty Name="asp_Role" Relationship="DBModel.asp_Group_Role" FromRole="asp_Group" ToRole="asp_Role" />
+          <NavigationProperty Name="asp_User" Relationship="DBModel.asp_User_Group" FromRole="asp_Group" ToRole="asp_User" />
         </EntityType>
         <EntityType Name="asp_Role">
           <Key>
             <PropertyRef Name="name" />
           </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="description" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
           <Property Name="status" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="asp_Group" Relationship="Self.asp_Group_Role" FromRole="asp_Role" ToRole="asp_Group" />
+          <NavigationProperty Name="asp_Group" Relationship="DBModel.asp_Group_Role" FromRole="asp_Role" ToRole="asp_Group" />
         </EntityType>
         <EntityType Name="asp_User">
           <Key>
             <PropertyRef Name="account" />
           </Key>
-          <Property Name="account" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="password" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="userName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="account" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="userName" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="email" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="asp_Group" Relationship="Self.asp_User_Group" FromRole="asp_User" ToRole="asp_Group" />
+          <NavigationProperty Name="Courses" Relationship="DBModel.FK_Course_asp_User" FromRole="asp_User" ToRole="Course" />
+          <NavigationProperty Name="Courses1" Relationship="DBModel.FK_Course_asp_User1" FromRole="asp_User" ToRole="Course" />
+          <NavigationProperty Name="Courses2" Relationship="DBModel.FK_Course_asp_User2" FromRole="asp_User" ToRole="Course" />
+          <NavigationProperty Name="Profiles" Relationship="DBModel.FK_Profile_asp_User" FromRole="asp_User" ToRole="Profile" />
+          <NavigationProperty Name="Reports" Relationship="DBModel.FK_Report_asp_User" FromRole="asp_User" ToRole="Report" />
+          <NavigationProperty Name="Reports1" Relationship="DBModel.FK_Report_asp_User1" FromRole="asp_User" ToRole="Report" />
+          <NavigationProperty Name="Reports2" Relationship="DBModel.FK_Report_asp_User2" FromRole="asp_User" ToRole="Report" />
+          <NavigationProperty Name="Reports3" Relationship="DBModel.FK_Report_asp_User3" FromRole="asp_User" ToRole="Report" />
+          <NavigationProperty Name="Students" Relationship="DBModel.FK_Student_asp_User" FromRole="asp_User" ToRole="Student" />
+          <NavigationProperty Name="asp_Group" Relationship="DBModel.asp_User_Group" FromRole="asp_User" ToRole="asp_Group" />
         </EntityType>
-        <Association Name="asp_Group_Role">
-          <End Role="asp_Group" Type="Self.asp_Group" Multiplicity="*" />
-          <End Role="asp_Role" Type="Self.asp_Role" Multiplicity="*" />
-        </Association>
-        <Association Name="asp_User_Group">
-          <End Role="asp_Group" Type="Self.asp_Group" Multiplicity="*" />
-          <End Role="asp_User" Type="Self.asp_User" Multiplicity="*" />
-        </Association>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="asp_Group" EntityType="Self.asp_Group" />
-          <EntitySet Name="asp_Role" EntityType="Self.asp_Role" />
-          <EntitySet Name="asp_User" EntityType="Self.asp_User" />
-          <AssociationSet Name="asp_Group_Role" Association="Self.asp_Group_Role">
-            <End Role="asp_Group" EntitySet="asp_Group" />
-            <End Role="asp_Role" EntitySet="asp_Role" />
-          </AssociationSet>
-          <AssociationSet Name="asp_User_Group" Association="Self.asp_User_Group">
-            <End Role="asp_Group" EntitySet="asp_Group" />
-            <End Role="asp_User" EntitySet="asp_User" />
-          </AssociationSet>
-          <EntitySet Name="Classes" EntityType="DBModel.Class" />
-          <EntitySet Name="Courses" EntityType="DBModel.Course" />
-          <EntitySet Name="Instructors" EntityType="DBModel.Instructor" />
-          <AssociationSet Name="FK_course_Classs" Association="DBModel.FK_course_Classs">
-            <End Role="Class" EntitySet="Classes" />
-            <End Role="Course" EntitySet="Courses" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Course_instructor" Association="DBModel.FK_Course_instructor">
-            <End Role="Instructor" EntitySet="Instructors" />
-            <End Role="Course" EntitySet="Courses" />
-          </AssociationSet>
-        </EntityContainer>
         <EntityType Name="Class">
           <Key>
             <PropertyRef Name="IDClass" />
           </Key>
           <Property Name="IDClass" Type="Int32" Nullable="false" />
           <Property Name="Subject" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="Course" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="CourseID" Type="Int32" />
           <Property Name="Department" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="Title" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Courses" Relationship="DBModel.FK_course_Classs" FromRole="Class" ToRole="Course" />
+          <NavigationProperty Name="Course" Relationship="DBModel.FK_Class_Course" FromRole="Class" ToRole="Course" />
         </EntityType>
         <EntityType Name="Course">
           <Key>
             <PropertyRef Name="IDCourse" />
           </Key>
-          <Property Name="IDCourse" Type="Int32" Nullable="false" />
-          <Property Name="cm" Type="Binary" MaxLength="45" FixedLength="false" />
-          <Property Name="class_IDclass" Type="Int32" />
+          <Property Name="IDCourse" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CMID" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
           <Property Name="Dates" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="Credits" Type="Int16" />
-          <Property Name="Days" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
-          <Property Name="BTime" Type="Time" Precision="7" />
-          <Property Name="ETime" Type="Time" Precision="7" />
-          <Property Name="Location" Type="Int32" />
-          <Property Name="instructor" Type="Int32" />
-          <NavigationProperty Name="Class" Relationship="DBModel.FK_course_Classs" FromRole="Course" ToRole="Class" />
-          <NavigationProperty Name="Instructor1" Relationship="DBModel.FK_Course_instructor" FromRole="Course" ToRole="Instructor" />
+          <Property Name="Credits" Type="Int32" />
+          <Property Name="Days" Type="Int32" />
+          <Property Name="BTime" Type="DateTime" Precision="3" />
+          <Property Name="ETime" Type="DateTime" Precision="3" />
+          <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FID" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="CLID" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="asp_User" Relationship="DBModel.FK_Course_asp_User" FromRole="Course" ToRole="asp_User" />
+          <NavigationProperty Name="asp_User1" Relationship="DBModel.FK_Course_asp_User1" FromRole="Course" ToRole="asp_User" />
+          <NavigationProperty Name="asp_User2" Relationship="DBModel.FK_Course_asp_User2" FromRole="Course" ToRole="asp_User" />
+          <NavigationProperty Name="Classes" Relationship="DBModel.FK_Class_Course" FromRole="Course" ToRole="Class" />
+          <NavigationProperty Name="Grades" Relationship="DBModel.FK_Grade_Course1" FromRole="Course" ToRole="Grade" />
         </EntityType>
-        <EntityType Name="Instructor">
+        <EntityType Name="Grade">
           <Key>
-            <PropertyRef Name="IDInstructor" />
+            <PropertyRef Name="GradeID" />
           </Key>
-          <Property Name="IDInstructor" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="email" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="url" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Courses" Relationship="DBModel.FK_Course_instructor" FromRole="Instructor" ToRole="Course" />
+          <Property Name="GradeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentGrade" Type="Int32" Nullable="false" />
+          <Property Name="CourseID" Type="Int32" Nullable="false" />
+          <Property Name="TotalScore" Type="Int32" />
+          <Property Name="GradeLetter" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Course" Relationship="DBModel.FK_Grade_Course1" FromRole="Grade" ToRole="Course" />
+          <NavigationProperty Name="Student" Relationship="DBModel.FK_Grade_Student" FromRole="Grade" ToRole="Student" />
         </EntityType>
-        <Association Name="FK_course_Classs">
-          <End Type="DBModel.Class" Role="Class" Multiplicity="0..1" />
+        <EntityType Name="Profile">
+          <Key>
+            <PropertyRef Name="ProfileID" />
+          </Key>
+          <Property Name="ProfileID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="account" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="fullname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="asp_User" Relationship="DBModel.FK_Profile_asp_User" FromRole="Profile" ToRole="asp_User" />
+        </EntityType>
+        <EntityType Name="Report">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseID" Type="Int32" Nullable="false" />
+          <Property Name="Studentcount" Type="Int32" />
+          <Property Name="StatisticalData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GradeDistributionData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="CLID" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="CMID" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="PVCID" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="DLTID" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+          <Property Name="Modified" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="asp_User" Relationship="DBModel.FK_Report_asp_User" FromRole="Report" ToRole="asp_User" />
+          <NavigationProperty Name="asp_User1" Relationship="DBModel.FK_Report_asp_User1" FromRole="Report" ToRole="asp_User" />
+          <NavigationProperty Name="asp_User2" Relationship="DBModel.FK_Report_asp_User2" FromRole="Report" ToRole="asp_User" />
+          <NavigationProperty Name="asp_User3" Relationship="DBModel.FK_Report_asp_User3" FromRole="Report" ToRole="asp_User" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="IDStudent" />
+          </Key>
+          <Property Name="IDStudent" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="account" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="asp_User" Relationship="DBModel.FK_Student_asp_User" FromRole="Student" ToRole="asp_User" />
+          <NavigationProperty Name="Grades" Relationship="DBModel.FK_Grade_Student" FromRole="Student" ToRole="Grade" />
+        </EntityType>
+        <Association Name="FK_Course_asp_User">
+          <End Type="DBModel.asp_User" Role="asp_User" Multiplicity="0..1" />
           <End Type="DBModel.Course" Role="Course" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Class">
-              <PropertyRef Name="IDClass" />
+            <Principal Role="asp_User">
+              <PropertyRef Name="account" />
             </Principal>
             <Dependent Role="Course">
-              <PropertyRef Name="class_IDclass" />
+              <PropertyRef Name="CMID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Course_instructor">
-          <End Type="DBModel.Instructor" Role="Instructor" Multiplicity="0..1" />
+        <Association Name="FK_Course_asp_User1">
+          <End Type="DBModel.asp_User" Role="asp_User" Multiplicity="0..1" />
           <End Type="DBModel.Course" Role="Course" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Instructor">
-              <PropertyRef Name="IDInstructor" />
+            <Principal Role="asp_User">
+              <PropertyRef Name="account" />
             </Principal>
             <Dependent Role="Course">
-              <PropertyRef Name="instructor" />
+              <PropertyRef Name="CLID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <Association Name="FK_Course_asp_User2">
+          <End Type="DBModel.asp_User" Role="asp_User" Multiplicity="0..1" />
+          <End Type="DBModel.Course" Role="Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="asp_User">
+              <PropertyRef Name="account" />
+            </Principal>
+            <Dependent Role="Course">
+              <PropertyRef Name="FID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Profile_asp_User">
+          <End Type="DBModel.asp_User" Role="asp_User" Multiplicity="0..1" />
+          <End Type="DBModel.Profile" Role="Profile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="asp_User">
+              <PropertyRef Name="account" />
+            </Principal>
+            <Dependent Role="Profile">
+              <PropertyRef Name="account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Report_asp_User">
+          <End Type="DBModel.asp_User" Role="asp_User" Multiplicity="0..1" />
+          <End Type="DBModel.Report" Role="Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="asp_User">
+              <PropertyRef Name="account" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="CLID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Report_asp_User1">
+          <End Type="DBModel.asp_User" Role="asp_User" Multiplicity="0..1" />
+          <End Type="DBModel.Report" Role="Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="asp_User">
+              <PropertyRef Name="account" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="CMID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Report_asp_User2">
+          <End Type="DBModel.asp_User" Role="asp_User" Multiplicity="0..1" />
+          <End Type="DBModel.Report" Role="Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="asp_User">
+              <PropertyRef Name="account" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="PVCID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Report_asp_User3">
+          <End Type="DBModel.asp_User" Role="asp_User" Multiplicity="0..1" />
+          <End Type="DBModel.Report" Role="Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="asp_User">
+              <PropertyRef Name="account" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="DLTID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_asp_User">
+          <End Type="DBModel.asp_User" Role="asp_User" Multiplicity="0..1" />
+          <End Type="DBModel.Student" Role="Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="asp_User">
+              <PropertyRef Name="account" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Class_Course">
+          <End Type="DBModel.Course" Role="Course" Multiplicity="0..1" />
+          <End Type="DBModel.Class" Role="Class" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="IDCourse" />
+            </Principal>
+            <Dependent Role="Class">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Grade_Course1">
+          <End Type="DBModel.Course" Role="Course" Multiplicity="1" />
+          <End Type="DBModel.Grade" Role="Grade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="IDCourse" />
+            </Principal>
+            <Dependent Role="Grade">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Grade_Student">
+          <End Type="DBModel.Student" Role="Student" Multiplicity="1" />
+          <End Type="DBModel.Grade" Role="Grade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="IDStudent" />
+            </Principal>
+            <Dependent Role="Grade">
+              <PropertyRef Name="StudentGrade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="asp_Group_Role">
+          <End Type="DBModel.asp_Group" Role="asp_Group" Multiplicity="*" />
+          <End Type="DBModel.asp_Role" Role="asp_Role" Multiplicity="*" />
+        </Association>
+        <Association Name="asp_User_Group">
+          <End Type="DBModel.asp_Group" Role="asp_Group" Multiplicity="*" />
+          <End Type="DBModel.asp_User" Role="asp_User" Multiplicity="*" />
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -330,55 +756,39 @@
           <EntitySetMapping Name="asp_Group">
             <EntityTypeMapping TypeName="DBModel.asp_Group">
               <MappingFragment StoreEntitySet="asp_Group">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="asp_Role">
             <EntityTypeMapping TypeName="DBModel.asp_Role">
               <MappingFragment StoreEntitySet="asp_Role">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="asp_User">
             <EntityTypeMapping TypeName="DBModel.asp_User">
               <MappingFragment StoreEntitySet="asp_User">
-                <ScalarProperty Name="account" ColumnName="account" />
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="userName" ColumnName="userName" />
                 <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="account" ColumnName="account" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="asp_Group_Role" TypeName="DBModel.asp_Group_Role" StoreEntitySet="asp_Group_Role">
-            <EndProperty Name="asp_Group">
-              <ScalarProperty Name="id" ColumnName="groupid" />
-            </EndProperty>
-            <EndProperty Name="asp_Role">
-              <ScalarProperty Name="name" ColumnName="roleName" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="asp_User_Group" TypeName="DBModel.asp_User_Group" StoreEntitySet="asp_User_Group">
-            <EndProperty Name="asp_Group">
-              <ScalarProperty Name="id" ColumnName="groupid" />
-            </EndProperty>
-            <EndProperty Name="asp_User">
-              <ScalarProperty Name="account" ColumnName="userid" />
-            </EndProperty>
-          </AssociationSetMapping>
           <EntitySetMapping Name="Classes">
             <EntityTypeMapping TypeName="DBModel.Class">
               <MappingFragment StoreEntitySet="Class">
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Department" ColumnName="Department" />
-                <ScalarProperty Name="Course" ColumnName="Course" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
                 <ScalarProperty Name="Subject" ColumnName="Subject" />
                 <ScalarProperty Name="IDClass" ColumnName="IDClass" />
               </MappingFragment>
@@ -387,29 +797,88 @@
           <EntitySetMapping Name="Courses">
             <EntityTypeMapping TypeName="DBModel.Course">
               <MappingFragment StoreEntitySet="Course">
-                <ScalarProperty Name="instructor" ColumnName="instructor" />
+                <ScalarProperty Name="CLID" ColumnName="CLID" />
+                <ScalarProperty Name="FID" ColumnName="FID" />
                 <ScalarProperty Name="Location" ColumnName="Location" />
                 <ScalarProperty Name="ETime" ColumnName="ETime" />
                 <ScalarProperty Name="BTime" ColumnName="BTime" />
                 <ScalarProperty Name="Days" ColumnName="Days" />
                 <ScalarProperty Name="Credits" ColumnName="Credits" />
                 <ScalarProperty Name="Dates" ColumnName="Dates" />
-                <ScalarProperty Name="class_IDclass" ColumnName="class_IDclass" />
-                <ScalarProperty Name="cm" ColumnName="cm" />
+                <ScalarProperty Name="CMID" ColumnName="CMID" />
                 <ScalarProperty Name="IDCourse" ColumnName="IDCourse" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Instructors">
-            <EntityTypeMapping TypeName="DBModel.Instructor">
-              <MappingFragment StoreEntitySet="Instructor">
-                <ScalarProperty Name="url" ColumnName="url" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="IDInstructor" ColumnName="IDInstructor" />
+          <EntitySetMapping Name="Grades">
+            <EntityTypeMapping TypeName="DBModel.Grade">
+              <MappingFragment StoreEntitySet="Grade">
+                <ScalarProperty Name="GradeLetter" ColumnName="GradeLetter" />
+                <ScalarProperty Name="TotalScore" ColumnName="TotalScore" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="StudentGrade" ColumnName="StudentGrade" />
+                <ScalarProperty Name="GradeID" ColumnName="GradeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Profiles">
+            <EntityTypeMapping TypeName="DBModel.Profile">
+              <MappingFragment StoreEntitySet="Profile">
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="account" ColumnName="account" />
+                <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reports">
+            <EntityTypeMapping TypeName="DBModel.Report">
+              <MappingFragment StoreEntitySet="Report">
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="DLTID" ColumnName="DLTID" />
+                <ScalarProperty Name="PVCID" ColumnName="PVCID" />
+                <ScalarProperty Name="CMID" ColumnName="CMID" />
+                <ScalarProperty Name="CLID" ColumnName="CLID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="GradeDistributionData" ColumnName="GradeDistributionData" />
+                <ScalarProperty Name="StatisticalData" ColumnName="StatisticalData" />
+                <ScalarProperty Name="Studentcount" ColumnName="Studentcount" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="DBModel.Student">
+              <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="account" ColumnName="account" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="IDStudent" ColumnName="IDStudent" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="asp_Group_Role" TypeName="DBModel.asp_Group_Role" StoreEntitySet="asp_Group_Role">
+            <EndProperty Name="asp_Role">
+              <ScalarProperty Name="name" ColumnName="roleName" />
+            </EndProperty>
+            <EndProperty Name="asp_Group">
+              <ScalarProperty Name="id" ColumnName="groupid" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="asp_User_Group" TypeName="DBModel.asp_User_Group" StoreEntitySet="asp_User_Group">
+            <EndProperty Name="asp_User">
+              <ScalarProperty Name="account" ColumnName="userid" />
+            </EndProperty>
+            <EndProperty Name="asp_Group">
+              <ScalarProperty Name="id" ColumnName="groupid" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

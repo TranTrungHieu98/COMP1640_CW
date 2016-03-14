@@ -3,21 +3,40 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CMSCMV5.DAO;
 
 namespace CMSCMV5.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "0")]
     public class ReportController : Controller
     {
         // GET: Admin/Report
-        public ActionResult Index()
+        public ActionResult Index(int id = 0)
         {
-            return View();
+            string currenUser = User.Identity.Name;
+            using (var db = new Entities())
+            {
+                var data = db.Reports.Where(x => x.CLID == currenUser).ToList();
+                if (id == 0 && data.Count> 0)
+                {
+                    ViewBag.Id = data[0].ID;
+                }
+                else
+                {
+                    ViewBag.Id = id;
+                }                
+                return View(data);
+            }
         }
 
         // GET: Admin/Report/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            using (var db = new Entities())
+            {
+                var data = db.Reports.FirstOrDefault(x => x.ID == id);
+                return PartialView(data);
+            }
         }
 
         // GET: Admin/Report/Create

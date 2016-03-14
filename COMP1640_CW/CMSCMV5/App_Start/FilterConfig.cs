@@ -7,7 +7,8 @@ namespace CMSCMV5
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new ErrorWeb());
+            filters.Add(new HandleErrorAttribute());
+            //filters.Add(new ErrorWeb());
         }
     }
 }

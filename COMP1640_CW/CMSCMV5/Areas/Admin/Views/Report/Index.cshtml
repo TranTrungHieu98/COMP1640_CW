@@ -1,0 +1,113 @@
+﻿@model System.Collections.Generic.List<CMSCMV5.DAO.Report>
+
+@{
+    ViewBag.Title = "My report";
+}
+
+@section style{
+    <style>
+        .table td a {
+            display: block;
+        }
+
+        .trdefault.hover {
+            cursor: pointer;
+            background-color: rgba(52, 135, 183, 0.65);
+        }
+    </style>
+}
+
+
+<div class="row" style="height:15px;"></div>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                My reports
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>CourseID</th>
+                                <th>CMID</th>
+                                <th>PVCID</th>
+                                <th>DLTID</th>
+                                <th>Created</th>
+                                <th>Modified</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                int i = 0;
+                                foreach (var item in Model)
+                                {
+                                    i++;
+                                    if (ViewBag.Id == item.ID)
+                                    {
+                                        <tr style="background-color: rgba(51, 122, 183, 1);">
+                                            <td>@i</td>
+                                            <td>@item.CourseID</td>
+                                            <td>@item.CMID</td>
+                                            <td>@item.PVCID</td>
+                                            <td>@item.DLTID</td>
+                                            <td>@item.Created</td>
+                                            <td>@item.Status</td>
+                                            <td><i style="color: #fff;" class="fa fa-arrow-right"></i></td>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+
+                                        <tr class="trdefault">
+                                            <td><a href="@Url.Action("Index", new { id = item.ID })"></a>@i</td>
+                                            <td>@item.CourseID</td>
+                                            <td>@item.CMID</td>
+                                            <td>@item.PVCID</td>
+                                            <td>@item.DLTID</td>
+                                            <td>@item.Created</td>
+                                            <td>@item.Status</td>
+                                            <td></td>
+                                        </tr>
+
+                                    }
+
+                                }
+                                if (ViewBag.Id == -1)
+                                {
+                                    <tr style="background-color: rgba(51, 122, 183, 1);">
+                                        <td colspan="4">Report Creating</td>
+                                        <td><i style="color: #fff;" class="fa fa-arrow-right"></i></td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <a href="@Url.Action("Create")" class="btn btn-outline btn-primary btn-lg btn-block">Create report</a>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <div class="col-lg-6">
+        @Html.Action("Details", new { id = ViewBag.Id })
+    </div>
+
+@section scripts{
+    <script>
+        $('tr').click(function () {
+            var link = $(this).find('a').attr('href');
+            if (typeof (link) != "undefined") {
+                window.location = $(this).find('a').attr('href');
+            }
+        }).hover(function () {
+            $(this).toggleClass('hover');
+        });
+    </script>
+}

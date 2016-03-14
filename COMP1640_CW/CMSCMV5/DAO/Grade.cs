@@ -12,15 +12,15 @@ namespace CMSCMV5.DAO
     using System;
     using System.Collections.Generic;
     
-    public partial class Class
+    public partial class Grade
     {
-        public int IDClass { get; set; }
-        public string Subject { get; set; }
-        public Nullable<int> CourseID { get; set; }
-        public string Department { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
+        public int GradeID { get; set; }
+        public int StudentGrade { get; set; }
+        public int CourseID { get; set; }
+        public Nullable<int> TotalScore { get; set; }
+        public string GradeLetter { get; set; }
     
         public virtual Course Course { get; set; }
+        public virtual Student Student { get; set; }
     }
 }
