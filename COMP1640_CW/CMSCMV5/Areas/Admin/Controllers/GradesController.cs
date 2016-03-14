@@ -10,116 +10,116 @@ using CMSCMV5.DAO;
 
 namespace CMSCMV5.Areas.Admin.Controllers
 {
-    public class CoursesController : Controller
+    public class GradesController : Controller
     {
         private Entities db = new Entities();
 
-        // GET: Admin/Courses
+        // GET: Admin/Grades
         public ActionResult Index()
         {
-            var courses = db.Courses.Include(c => c.Class).Include(c => c.Instructor1);
-            return View(courses.ToList());
+            var grades = db.Grades.Include(g => g.Course).Include(g => g.Student);
+            return View(grades.ToList());
         }
 
-        // GET: Admin/Courses/Details/5
+        // GET: Admin/Grades/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Courses.Find(id);
-            if (course == null)
+            Grade grade = db.Grades.Find(id);
+            if (grade == null)
             {
                 return HttpNotFound();
             }
-            return View(course);
+            return View(grade);
         }
 
-        // GET: Admin/Courses/Create
+        // GET: Admin/Grades/Create
         public ActionResult Create()
         {
-            ViewBag.class_IDclass = new SelectList(db.Classes, "IDClass", "Subject");
-            ViewBag.instructor = new SelectList(db.Instructors, "IDInstructor", "name");
+            ViewBag.CourseID = new SelectList(db.Courses, "IDCourse", "CMID");
+            ViewBag.StudentGrade = new SelectList(db.Students, "IDStudent", "FirstName");
             return View();
         }
 
-        // POST: Admin/Courses/Create
+        // POST: Admin/Grades/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IDCourse,cm,class_IDclass,Dates,Credits,Days,BTime,ETime,Location,instructor")] Course course)
+        public ActionResult Create([Bind(Include = "GradeID,StudentGrade,CourseID,TotalScore,GradeLetter")] Grade grade)
         {
             if (ModelState.IsValid)
             {
-                db.Courses.Add(course);
+                db.Grades.Add(grade);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.class_IDclass = new SelectList(db.Classes, "IDClass", "Subject", course.class_IDclass);
-            ViewBag.instructor = new SelectList(db.Instructors, "IDInstructor", "name", course.instructor);
-            return View(course);
+            ViewBag.CourseID = new SelectList(db.Courses, "IDCourse", "CMID", grade.CourseID);
+            ViewBag.StudentGrade = new SelectList(db.Students, "IDStudent", "FirstName", grade.StudentGrade);
+            return View(grade);
         }
 
-        // GET: Admin/Courses/Edit/5
+        // GET: Admin/Grades/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Courses.Find(id);
-            if (course == null)
+            Grade grade = db.Grades.Find(id);
+            if (grade == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.class_IDclass = new SelectList(db.Classes, "IDClass", "Subject", course.class_IDclass);
-            ViewBag.instructor = new SelectList(db.Instructors, "IDInstructor", "name", course.instructor);
-            return View(course);
+            ViewBag.CourseID = new SelectList(db.Courses, "IDCourse", "CMID", grade.CourseID);
+            ViewBag.StudentGrade = new SelectList(db.Students, "IDStudent", "FirstName", grade.StudentGrade);
+            return View(grade);
         }
 
-        // POST: Admin/Courses/Edit/5
+        // POST: Admin/Grades/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IDCourse,cm,class_IDclass,Dates,Credits,Days,BTime,ETime,Location,instructor")] Course course)
+        public ActionResult Edit([Bind(Include = "GradeID,StudentGrade,CourseID,TotalScore,GradeLetter")] Grade grade)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(course).State = EntityState.Modified;
+                db.Entry(grade).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.class_IDclass = new SelectList(db.Classes, "IDClass", "Subject", course.class_IDclass);
-            ViewBag.instructor = new SelectList(db.Instructors, "IDInstructor", "name", course.instructor);
-            return View(course);
+            ViewBag.CourseID = new SelectList(db.Courses, "IDCourse", "CMID", grade.CourseID);
+            ViewBag.StudentGrade = new SelectList(db.Students, "IDStudent", "FirstName", grade.StudentGrade);
+            return View(grade);
         }
 
-        // GET: Admin/Courses/Delete/5
+        // GET: Admin/Grades/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Courses.Find(id);
-            if (course == null)
+            Grade grade = db.Grades.Find(id);
+            if (grade == null)
             {
                 return HttpNotFound();
             }
-            return View(course);
+            return View(grade);
         }
 
-        // POST: Admin/Courses/Delete/5
+        // POST: Admin/Grades/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Course course = db.Courses.Find(id);
-            db.Courses.Remove(course);
+            Grade grade = db.Grades.Find(id);
+            db.Grades.Remove(grade);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
