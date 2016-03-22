@@ -1,64 +1,88 @@
 ﻿@model IEnumerable<CMSCMV5.DAO.Course>
 
 @{
-    ViewBag.Title = "List of Course";
+    ViewBag.Title = "Index";
 }
+<style>
+    td a {
+        border-radius: 4px;
+        padding-left: 10px;
+        padding-right: 10px;
+        background-color: red;
+        color: white;
+    }
 
-<h2>@Html.Raw(ViewBag.Title)</h2>
+    #PoPrintBlue {
+        border-radius: 4px;
+        padding-left: 10px;
+        padding-right: 10px;
+        background-color: blue;
+        color: white;
+    }
 
-<a class="btn btn-danger" href="/Admin/Course1/Create">Create New</a>
-<br />
-<div class="table-responsive">
-    <table class="table">
+    p a {
+         
+        border-radius: 4px;
+        background-color: #f56954;
+            color: white;
+        padding:8px;
+    }
+</style>
+
+<h2></h2>
+
+<p>
+    @Html.ActionLink("Create Courses", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Date
+        </th>
+        <th>
+            Credits
+        </th>
+        <th>
+            Days
+        </th>
+        <th>
+            Start Time
+        </th>
+        <th>
+            End Time
+        </th>
+        <th>
+            Location
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Dates)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Credits)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Days)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ETime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Location)
-            </th>
-            <th></th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dates)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Credits)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Days)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ETime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.IDCourse }, new { id = "PoPrintBlue" }) |
+                @Html.ActionLink("Details", "Details", new { id = item.IDCourse }, new { id = "PoPrintBlue" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.IDCourse }, new { onclick = "return confirm('Are sure wants to delete?');" })
+            </td>
         </tr>
+    }
 
-        @foreach (var item in Model) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Dates)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Credits)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Days)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ETime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Location)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id=item.IDCourse }) |
-                    @Html.ActionLink("Details", "Details", new { id=item.IDCourse }) |
-                    @Html.ActionLink("Delete", "Delete", new { id=item.IDCourse })
-                </td>
-            </tr>
-}
-
-    </table>
-</div>
+</table>

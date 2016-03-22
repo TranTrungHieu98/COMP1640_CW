@@ -106,23 +106,18 @@ namespace CMSCMV5.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Grade grade = db.Grades.Find(id);
+            db.Grades.Remove(grade);
+            db.SaveChanges();
             if (grade == null)
             {
                 return HttpNotFound();
             }
-            return View(grade);
+            return RedirectToAction("Index");
         }
 
         // POST: Admin/Grades/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Grade grade = db.Grades.Find(id);
-            db.Grades.Remove(grade);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
 
         protected override void Dispose(bool disposing)
         {

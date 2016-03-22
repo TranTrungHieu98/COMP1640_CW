@@ -1559,11 +1559,6 @@
     <Content Include="Areas\Admin\Views\Report\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Report\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Report\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Students\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Students\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Students\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Students\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Students\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Grades\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Grades\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Grades\Details.cshtml" />
@@ -1574,6 +1569,11 @@
     <Content Include="Areas\Admin\Views\Courses1\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Courses1\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Courses1\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Students\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Students\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Students\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Students\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Students\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Classes\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Classes\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Classes\Details.cshtml" />
@@ -1929,6 +1929,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Views\Layout\" />
     <Folder Include="Areas\Site\Controllers\" />
     <Folder Include="Areas\Site\Models\" />
   </ItemGroup>
@@ -1959,11 +1960,12 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>52394</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:52394/</IISUrl>
+          <IISUrl>http://localhost:11320/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:11320/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
+          <CustomServerUrl>http://localhost:44301</CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

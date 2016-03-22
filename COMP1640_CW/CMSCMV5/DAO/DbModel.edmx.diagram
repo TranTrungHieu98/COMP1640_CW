@@ -12,7 +12,7 @@
         <EntityTypeShape EntityType="DBModel.Course" Width="1.5" PointX="5.25" PointY="16.375" />
         <EntityTypeShape EntityType="DBModel.Grade" Width="1.5" PointX="7.5" PointY="15.375" />
         <EntityTypeShape EntityType="DBModel.Profile" Width="1.5" PointX="5.25" PointY="5.125" />
-        <EntityTypeShape EntityType="DBModel.Report" Width="1.5" PointX="5.25" PointY="8" />
+        <EntityTypeShape EntityType="DBModel.Report" Width="1.5" PointX="5.25" PointY="8" IsExpanded="true" />
         <EntityTypeShape EntityType="DBModel.Student" Width="1.5" PointX="5.25" PointY="12.875" />
         <AssociationConnector Association="DBModel.FK_Course_asp_User" />
         <AssociationConnector Association="DBModel.FK_Course_asp_User1" />

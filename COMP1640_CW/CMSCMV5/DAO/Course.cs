@@ -11,7 +11,8 @@ namespace CMSCMV5.DAO
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Course
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,10 +24,13 @@ namespace CMSCMV5.DAO
     
         public int IDCourse { get; set; }
         public string CMID { get; set; }
+        [DataType(DataType.Date)]
         public string Dates { get; set; }
         public Nullable<int> Credits { get; set; }
         public Nullable<int> Days { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public Nullable<System.DateTime> BTime { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public Nullable<System.DateTime> ETime { get; set; }
         public string Location { get; set; }
         public string FID { get; set; }

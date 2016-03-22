@@ -4,12 +4,49 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<style>
+    p a {
+        border: 1px solid #B6B6B6;
+        border-radius: 4px;
+        padding: 8px;
+    }
+
+    dl {
+        margin-left: 25%;
+        margin-right: 25%;
+        width: 500px;
+        border: 1px solid #B6B6B6;
+    }
+
+    dt, dd {
+        padding-top: 2em;
+        padding-left: 1em;
+    }
+</style>
+
+<h2></h2>
 
 <div>
-    <h4>Grade</h4>
+    <h4></h4>
+    <a class="btn btn-danger" href="">Details Grade</a>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            Student
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Student.FirstName)
+        </dd>
+
+        <dt>
+            Course Moderator
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Course.CMID)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.TotalScore)
         </dt>
@@ -24,22 +61,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.GradeLetter)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Course.CMID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Course.CMID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Student.FirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Student.FirstName)
         </dd>
 
     </dl>

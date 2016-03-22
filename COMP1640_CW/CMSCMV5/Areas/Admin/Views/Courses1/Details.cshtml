@@ -4,10 +4,30 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<style>
+      p a {
+        border:1px solid #B6B6B6;
+        border-radius: 4px;
+        padding:8px;
+    }
+    dl {
+        margin-left: 25%;
+        margin-right: 25%;
+        width: 500px;
+        border: 1px solid #B6B6B6;
+    }
+
+    dt, dd {
+        padding-top: 2em;
+        padding-left: 1em;
+    }
+</style>
+
+<h2></h2>
 
 <div>
-    <h4>Course</h4>
+    <h4></h4>
+    <a class="btn btn-danger" href="">Details Course</a>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -35,7 +55,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.BTime)
+           Start Time
         </dt>
 
         <dd>
@@ -43,7 +63,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ETime)
+            End Time
         </dt>
 
         <dd>
@@ -56,30 +76,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.Location)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.asp_User.password)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.asp_User.password)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.asp_User1.password)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.asp_User1.password)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.asp_User2.password)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.asp_User2.password)
         </dd>
 
     </dl>

@@ -96,28 +96,16 @@ namespace CMSCMV5.Areas.Admin.Controllers
         // GET: Admin/Classes/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Class @class = db.Classes.Find(id);
-            if (@class == null)
-            {
-                return HttpNotFound();
-            }
-            return View(@class);
-        }
-
-        // POST: Admin/Classes/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
             Class @class = db.Classes.Find(id);
             db.Classes.Remove(@class);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        // POST: Admin/Classes/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+
 
         protected override void Dispose(bool disposing)
         {

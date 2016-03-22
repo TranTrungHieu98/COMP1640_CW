@@ -102,23 +102,19 @@ namespace CMSCMV5.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Student student = db.Students.Find(id);
+            db.Students.Remove(student);
+            db.SaveChanges();
+            
             if (student == null)
             {
                 return HttpNotFound();
             }
-            return View(student);
+            return RedirectToAction("Index");
         }
 
         // POST: Admin/Students/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Student student = db.Students.Find(id);
-            db.Students.Remove(student);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
 
         protected override void Dispose(bool disposing)
         {

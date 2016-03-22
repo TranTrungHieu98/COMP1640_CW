@@ -1,49 +1,69 @@
 ﻿@model IEnumerable<CMSCMV5.DAO.Grade>
 
 @{
-    ViewBag.Title = "List of Grades";
+    ViewBag.Title = "";
 }
+
+<style>
+    td a {
+        border-radius: 4px;
+        padding-left: 10px;
+        padding-right: 10px;
+        background-color: red;
+        color: white;
+    }
+
+    #PoPrintBlue {
+        border-radius: 4px;
+        padding-left: 10px;
+        padding-right: 10px;
+        background-color: blue;
+        color: white;
+    }
+</style>
 
 <h2>@Html.Raw(ViewBag.Title)</h2>
 
-<a class="btn btn-danger" href="/Admin/Grades/Create">Create New</a>
+<a class="btn btn-danger" href="/Admin/Grades/Create">Create Grade</a>
 <br />
 <div class="table-responsive">
     <table class="table">
         <tr>
+            <th>
+                Students
+            </th>
+            <th>
+                Course Moderator
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.TotalScore)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.GradeLetter)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Course.CMID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Student.FirstName)
-            </th>
+
             <th></th>
         </tr>
 
         @foreach (var item in Model) {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TotalScore)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.GradeLetter)
+                    @Html.DisplayFor(modelItem => item.Student.FirstName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Course.CMID)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Student.FirstName)
+                    @Html.DisplayFor(modelItem => item.TotalScore)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id=item.GradeID }) |
-                    @Html.ActionLink("Details", "Details", new { id=item.GradeID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id=item.GradeID })
+                    @Html.DisplayFor(modelItem => item.GradeLetter)
+                </td>
+               
+                 <td>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.GradeID }, new { id = "PoPrintBlue" }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.GradeID }, new { id = "PoPrintBlue" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.GradeID }, new { onclick = "return confirm('Are sure wants to delete?');" })
                 </td>
             </tr>
 }

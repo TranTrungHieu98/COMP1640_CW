@@ -3,11 +3,30 @@
 @{
     ViewBag.Title = "Details";
 }
+<style>
+      p a {
+        border:1px solid #B6B6B6;
+        border-radius: 4px;
+        padding:8px;
+    }
+    dl {
+        margin-left: 25%;
+        margin-right: 25%;
+        width: 500px;
+        border: 1px solid #B6B6B6;
+    }
 
-<h2>Details</h2>
+    dt, dd {
+        padding-top: 2em;
+        padding-left: 1em;
+    }
+</style>
+
+<h2></h2>
 
 <div>
-    <h4>Student</h4>
+    <h4></h4>
+    <a class="btn btn-danger" href="">Details Student</a>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -48,14 +67,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.Phone)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.asp_User.password)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.asp_User.password)
         </dd>
 
     </dl>

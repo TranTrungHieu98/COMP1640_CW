@@ -18,7 +18,13 @@ namespace CMSCMV5.Areas.Admin.Controllers
         public ActionResult Index()
         {
             var courses = db.Courses.Include(c => c.asp_User).Include(c => c.asp_User1).Include(c => c.asp_User2);
-            return View(courses.ToList());
+            List<Course> lstCourse = courses.ToList();
+            foreach (Course c in lstCourse)
+            {
+                var cDate = c.Dates;
+                c.Dates = cDate.Split(' ')[0];
+            }
+            return View(lstCourse);
         }
 
         // GET: Admin/Courses1/Details/5
@@ -29,6 +35,8 @@ namespace CMSCMV5.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Course course = db.Courses.Find(id);
+            var cDate = course.Dates;
+            course.Dates = cDate.Split(' ')[0];
             if (course == null)
             {
                 return HttpNotFound();
@@ -39,9 +47,9 @@ namespace CMSCMV5.Areas.Admin.Controllers
         // GET: Admin/Courses1/Create
         public ActionResult Create()
         {
-            ViewBag.CMID = new SelectList(db.asp_User, "account", "password");
-            ViewBag.CLID = new SelectList(db.asp_User, "account", "password");
-            ViewBag.FID = new SelectList(db.asp_User, "account", "password");
+            ViewBag.CMID = new SelectList(db.asp_User, "account", "account");
+            ViewBag.CLID = new SelectList(db.asp_User, "account", "account");
+            ViewBag.FID = new SelectList(db.asp_User, "account", "account");
             return View();
         }
 
@@ -59,9 +67,9 @@ namespace CMSCMV5.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CMID = new SelectList(db.asp_User, "account", "password", course.CMID);
-            ViewBag.CLID = new SelectList(db.asp_User, "account", "password", course.CLID);
-            ViewBag.FID = new SelectList(db.asp_User, "account", "password", course.FID);
+            ViewBag.CMID = new SelectList(db.asp_User, "account", "account", course.CMID);
+            ViewBag.CLID = new SelectList(db.asp_User, "account", "account", course.CLID);
+            ViewBag.FID = new SelectList(db.asp_User, "account", "account", course.FID);
             return View(course);
         }
 
@@ -77,9 +85,9 @@ namespace CMSCMV5.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CMID = new SelectList(db.asp_User, "account", "password", course.CMID);
-            ViewBag.CLID = new SelectList(db.asp_User, "account", "password", course.CLID);
-            ViewBag.FID = new SelectList(db.asp_User, "account", "password", course.FID);
+            ViewBag.CMID = new SelectList(db.asp_User, "account", "account", course.CMID);
+            ViewBag.CLID = new SelectList(db.asp_User, "account", "account", course.CLID);
+            ViewBag.FID = new SelectList(db.asp_User, "account", "account", course.FID);
             return View(course);
         }
 
@@ -96,37 +104,24 @@ namespace CMSCMV5.Areas.Admin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CMID = new SelectList(db.asp_User, "account", "password", course.CMID);
-            ViewBag.CLID = new SelectList(db.asp_User, "account", "password", course.CLID);
-            ViewBag.FID = new SelectList(db.asp_User, "account", "password", course.FID);
+            ViewBag.CMID = new SelectList(db.asp_User, "account", "account", course.CMID);
+            ViewBag.CLID = new SelectList(db.asp_User, "account", "account", course.CLID);
+            ViewBag.FID = new SelectList(db.asp_User, "account", "account", course.FID);
             return View(course);
         }
 
         // GET: Admin/Courses1/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Course course = db.Courses.Find(id);
-            if (course == null)
-            {
-                return HttpNotFound();
-            }
-            return View(course);
-        }
-
-        // POST: Admin/Courses1/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
             Course course = db.Courses.Find(id);
             db.Courses.Remove(course);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        // POST: Admin/Courses1/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
 
         protected override void Dispose(bool disposing)
         {
