@@ -1,0 +1,69 @@
+﻿@model IEnumerable<CMSCMV5.DAO.Class>
+
+@{
+    ViewBag.Title = "";
+}
+<style>
+    td a {
+        border-radius: 4px;
+        padding-left: 10px;
+        padding-right: 10px;
+        background-color: red;
+        color: white;
+    }
+
+    #PoPrintBlue {
+        border-radius: 4px;
+        padding-left: 10px;
+        padding-right: 10px;
+        background-color: blue;
+        color: white;
+    }
+</style>
+<h2>@Html.Raw(ViewBag.Title)</h2>
+<a class="btn btn-danger" href="/Admin/Classes/Create">Create Classes</a>
+<br />
+<div class="table-responsive">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Subject)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Department)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subject)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Department)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.IDClass }, new { id = "PoPrintBlue" }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.IDClass }, new { id = "PoPrintBlue" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.IDClass }, new { onclick = "return confirm('Are sure wants to delete?');" })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

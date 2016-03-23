@@ -1,0 +1,88 @@
+﻿@model IEnumerable<CMSCMV5.DAO.Course>
+
+@{
+    ViewBag.Title = "Index";
+}
+<style>
+    td a {
+        border-radius: 4px;
+        padding-left: 10px;
+        padding-right: 10px;
+        background-color: red;
+        color: white;
+    }
+
+    #PoPrintBlue {
+        border-radius: 4px;
+        padding-left: 10px;
+        padding-right: 10px;
+        background-color: blue;
+        color: white;
+    }
+
+    p a {
+         
+        border-radius: 4px;
+        background-color: #f56954;
+            color: white;
+        padding:8px;
+    }
+</style>
+
+<h2></h2>
+
+<p>
+    @Html.ActionLink("Create Courses", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Date
+        </th>
+        <th>
+            Credits
+        </th>
+        <th>
+            Days
+        </th>
+        <th>
+            Start Time
+        </th>
+        <th>
+            End Time
+        </th>
+        <th>
+            Location
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dates)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Credits)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Days)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ETime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.IDCourse }, new { id = "PoPrintBlue" }) |
+                @Html.ActionLink("Details", "Details", new { id = item.IDCourse }, new { id = "PoPrintBlue" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.IDCourse }, new { onclick = "return confirm('Are sure wants to delete?');" })
+            </td>
+        </tr>
+    }
+
+</table>

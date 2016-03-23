@@ -10,18 +10,24 @@ using CMSCMV5.DAO;
 
 namespace CMSCMV5.Areas.Admin.Controllers
 {
-    public class CoursesController : Controller
+    public class Courses1Controller : Controller
     {
         private Entities db = new Entities();
 
-        // GET: Admin/Courses
+        // GET: Admin/Courses1
         public ActionResult Index()
         {
-            var courses = db.Courses.Include(c => c.Class).Include(c => c.Instructor1);
-            return View(courses.ToList());
+            var courses = db.Courses.Include(c => c.asp_User).Include(c => c.asp_User1).Include(c => c.asp_User2);
+            List<Course> lstCourse = courses.ToList();
+            foreach (Course c in lstCourse)
+            {
+                var cDate = c.Dates;
+                c.Dates = cDate.Split(' ')[0];
+            }
+            return View(lstCourse);
         }
 
-        // GET: Admin/Courses/Details/5
+        // GET: Admin/Courses1/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -29,6 +35,8 @@ namespace CMSCMV5.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Course course = db.Courses.Find(id);
+            var cDate = course.Dates;
+            course.Dates = cDate.Split(' ')[0];
             if (course == null)
             {
                 return HttpNotFound();
@@ -36,20 +44,21 @@ namespace CMSCMV5.Areas.Admin.Controllers
             return View(course);
         }
 
-        // GET: Admin/Courses/Create
+        // GET: Admin/Courses1/Create
         public ActionResult Create()
         {
-            ViewBag.class_IDclass = new SelectList(db.Classes, "IDClass", "Subject");
-            ViewBag.instructor = new SelectList(db.Instructors, "IDInstructor", "name");
+            ViewBag.CMID = new SelectList(db.asp_User, "account", "account");
+            ViewBag.CLID = new SelectList(db.asp_User, "account", "account");
+            ViewBag.FID = new SelectList(db.asp_User, "account", "account");
             return View();
         }
 
-        // POST: Admin/Courses/Create
+        // POST: Admin/Courses1/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IDCourse,cm,class_IDclass,Dates,Credits,Days,BTime,ETime,Location,instructor")] Course course)
+        public ActionResult Create([Bind(Include = "IDCourse,CMID,Dates,Credits,Days,BTime,ETime,Location,FID,CLID")] Course course)
         {
             if (ModelState.IsValid)
             {
@@ -58,12 +67,13 @@ namespace CMSCMV5.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.class_IDclass = new SelectList(db.Classes, "IDClass", "Subject", course.class_IDclass);
-            ViewBag.instructor = new SelectList(db.Instructors, "IDInstructor", "name", course.instructor);
+            ViewBag.CMID = new SelectList(db.asp_User, "account", "account", course.CMID);
+            ViewBag.CLID = new SelectList(db.asp_User, "account", "account", course.CLID);
+            ViewBag.FID = new SelectList(db.asp_User, "account", "account", course.FID);
             return View(course);
         }
 
-        // GET: Admin/Courses/Edit/5
+        // GET: Admin/Courses1/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -75,17 +85,18 @@ namespace CMSCMV5.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.class_IDclass = new SelectList(db.Classes, "IDClass", "Subject", course.class_IDclass);
-            ViewBag.instructor = new SelectList(db.Instructors, "IDInstructor", "name", course.instructor);
+            ViewBag.CMID = new SelectList(db.asp_User, "account", "account", course.CMID);
+            ViewBag.CLID = new SelectList(db.asp_User, "account", "account", course.CLID);
+            ViewBag.FID = new SelectList(db.asp_User, "account", "account", course.FID);
             return View(course);
         }
 
-        // POST: Admin/Courses/Edit/5
+        // POST: Admin/Courses1/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IDCourse,cm,class_IDclass,Dates,Credits,Days,BTime,ETime,Location,instructor")] Course course)
+        public ActionResult Edit([Bind(Include = "IDCourse,CMID,Dates,Credits,Days,BTime,ETime,Location,FID,CLID")] Course course)
         {
             if (ModelState.IsValid)
             {
@@ -93,36 +104,24 @@ namespace CMSCMV5.Areas.Admin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.class_IDclass = new SelectList(db.Classes, "IDClass", "Subject", course.class_IDclass);
-            ViewBag.instructor = new SelectList(db.Instructors, "IDInstructor", "name", course.instructor);
+            ViewBag.CMID = new SelectList(db.asp_User, "account", "account", course.CMID);
+            ViewBag.CLID = new SelectList(db.asp_User, "account", "account", course.CLID);
+            ViewBag.FID = new SelectList(db.asp_User, "account", "account", course.FID);
             return View(course);
         }
 
-        // GET: Admin/Courses/Delete/5
+        // GET: Admin/Courses1/Delete/5
         public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Course course = db.Courses.Find(id);
-            if (course == null)
-            {
-                return HttpNotFound();
-            }
-            return View(course);
-        }
-
-        // POST: Admin/Courses/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
         {
             Course course = db.Courses.Find(id);
             db.Courses.Remove(course);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        // POST: Admin/Courses1/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
 
         protected override void Dispose(bool disposing)
         {
