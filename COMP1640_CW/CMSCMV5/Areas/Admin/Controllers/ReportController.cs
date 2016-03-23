@@ -7,25 +7,80 @@ using CMSCMV5.DAO;
 
 namespace CMSCMV5.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "0")]
+    //[Authorize(Roles = "0")]
     public class ReportController : Controller
     {
         // GET: Admin/Report
         public ActionResult Index(int id = 0)
         {
-            string currenUser = User.Identity.Name;
+            string currenUser = User.Identity.Name;            
+            
             using (var db = new Entities())
             {
-                var data = db.Reports.Where(x => x.CLID == currenUser).ToList();
-                if (id == 0 && data.Count > 0)
+                //get group
+                var userGroup = db.asp_User.FirstOrDefault(x => x.account == currenUser);
+                if (userGroup != null)
                 {
-                    ViewBag.Id = data[0].ID;
+                    var groupid = userGroup.asp_Group.FirstOrDefault().id;
+                    ViewBag.groupid = groupid;
+                    if (groupid == 5)
+                    {
+                        var data = db.Reports.Where(x => x.CLID == currenUser).ToList();
+                        if (id == 0 && data.Count > 0)
+                        {
+                            ViewBag.Id = data[0].ID;
+                        }
+                        else
+                        {
+                            ViewBag.Id = id;
+                        }
+                        return View(data);
+                    }
+
+                    if (groupid == 4)
+                    {
+                        var data = db.Reports.Where(x => x.CMID == currenUser && x.Status == 1).ToList();
+                        if (id == 0 && data.Count > 0)
+                        {
+                            ViewBag.Id = data[0].ID;
+                        }
+                        else
+                        {
+                            ViewBag.Id = id;
+                        }
+                        return View(data);
+                    }
+
+                    if (groupid == 3)
+                    {
+                        var data = db.Reports.Where(x => x.DLTID == currenUser && x.Status == 2).ToList();
+                        if (id == 0 && data.Count > 0)
+                        {
+                            ViewBag.Id = data[0].ID;
+                        }
+                        else
+                        {
+                            ViewBag.Id = id;
+                        }
+                        return View(data);
+                    }
+
+                    if (groupid == 2)
+                    {
+                        var data = db.Reports.Where(x => x.PVCID == currenUser && x.Status == 3).ToList();
+                        if (id == 0 && data.Count > 0)
+                        {
+                            ViewBag.Id = data[0].ID;
+                        }
+                        else
+                        {
+                            ViewBag.Id = id;
+                        }
+                        return View(data);
+                    }
+
                 }
-                else
-                {
-                    ViewBag.Id = id;
-                }
-                return View(data);
+                return View();
             }
         }
 
@@ -40,24 +95,32 @@ namespace CMSCMV5.Areas.Admin.Controllers
         }
 
         // GET: Admin/Report/Create
-        public ActionResult Create()
+        public ActionResult Create(int courseID)
         {
-            return View();
+            using (var db = new Entities())
+            {
+                var data = db.Courses.FirstOrDefault(x => x.IDCourse == courseID);
+                return View(data);
+            }
         }
 
         // POST: Admin/Report/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Report report)
         {
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                using (var db = new Entities())
+                {
+                    report.Created = DateTime.Now;                    
+                    db.Reports.Add(report);
+                    db.SaveChanges();
+                    return Json(new { status = true }, JsonRequestBehavior.AllowGet);
+                }
             }
             catch
             {
-                return View();
+                return Json(new { status = false }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -69,18 +132,28 @@ namespace CMSCMV5.Areas.Admin.Controllers
 
         // POST: Admin/Report/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Approve(int id, int status)
         {
             try
             {
-                // TODO: Add update logic here
+                using (var db = new Entities())
+                {
+                    var update = db.Reports.FirstOrDefault(x => x.ID == id);
+                    if (update != null)
+                    {
+                        update.Status = status;
+                        db.SaveChanges();
+                        return Json(new { status = true }, JsonRequestBehavior.AllowGet);
+                    }
+                }
 
-                return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return Json(new { status = false }, JsonRequestBehavior.AllowGet);
             }
+
+            return Json(new { status = false }, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Admin/Report/Delete/5

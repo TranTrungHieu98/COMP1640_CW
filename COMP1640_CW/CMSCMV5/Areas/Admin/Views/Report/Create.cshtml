@@ -1,4 +1,5 @@
-﻿@{
+﻿@model CMSCMV5.DAO.Course
+@{
     ViewBag.Title = "Report";
 }
 
@@ -13,485 +14,553 @@
         <li class="active">Report</li>
     </ol>
 </section>
-<div style="margin: 0 auto; margin-top: 10px;width: 600px;">
-    <table border="1" cellpadding="0" cellspacing="0" style="width: 100%">
-        <tbody>
-            <tr>
-                <td colspan="2" style="width:568px; background-color:antiquewhite">
-                    <p align="center"><strong>COURSE MONITORING REPORT</strong></p>
-                </td>
-            </tr>
-            <tr>
-                <td style="width:130px;">
-                    <p align="center">Academic Session</p>
-                </td>
-                <td style="width:438px;">
-                    <p>&nbsp;</p>
-                </td>
-            </tr>
-            <tr>
-                <td style="width:130px;">
-                    <p align="center">Course Code + title:</p>
-                </td>
-                <td style="width:438px;">
-                    <p>&nbsp;</p>
-                </td>
-            </tr>
-            <tr>
-                <td style="width:130px;">
-                    <p align="center">Course Leader:</p>
-                </td>
-                <td style="width:438px;">
-                    <p>&nbsp;</p>
-                </td>
-            </tr>
-            <tr>
-                <td style="width:130px;">
-                    <p align="center">Student count</p>
-                </td>
-                <td style="width:438px;">
-                    <p>&nbsp;</p>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+@if (Model != null)
+{
+    <div style="margin: 0 auto; margin-top: 10px;width: 600px;">
+        <table border="1" cellpadding="0" cellspacing="0" style="width: 100%">
+            <tbody>
+                <tr>
+                    <td colspan="2" style="width:568px; background-color:antiquewhite">
+                        <p align="center"><strong>COURSE MONITORING REPORT</strong></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:130px;">
+                        <p align="center">Academic Session</p>
+                    </td>
+                    <td style="width:438px;">
+                        <p>&nbsp;</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:130px;">
+                        <p align="center">Course Code + title:</p>
+                    </td>
+                    <td style="width:438px;">
+                        <p>&nbsp;</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:130px;">
+                        <p align="center">Course Leader:</p>
+                    </td>
+                    <td style="width:438px;">
+                        <p>&nbsp;@Model.CLID</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 130px;">
+                        <p align="center">Student Count</p>
+                    </td>
+                    <td style="width: 438px;">
+                        <p id="student-count">200</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 130px;">
+                        <p align="center">Start Date</p>
+                    </td>
+                    <td style="width: 438px;">
+                        <p>&nbsp;@String.Format("{0: yyyy-dd-MM}", Model.BTime)</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 130px;">
+                        <p align="center">End Date</p>
+                    </td>
+                    <td style="width: 438px;">
+                        <p>&nbsp;@String.Format("{0: yyyy-dd-MM}", Model.ETime)</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:130px;">
+                        <p align="center">Credits</p>
+                    </td>
+                    <td style="width:438px;">
+                        <p>&nbsp;@Model.Credits</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
-    <p align="center">&nbsp;</p>
+        <p align="center">&nbsp;</p>
 
-    <table border="1" cellpadding="0" cellspacing="0" style="width: 100%">
-        <tbody>
-            <tr>
-                <td colspan="7" style="width:568px;background-color:antiquewhite">
-                    <p align="center"><strong>Statistical Data</strong></p>
-                </td>
-            </tr>
-            <tr>
-                <td style="width:81px;height:21px;">
-                    <p>&nbsp;</p>
-                </td>
-                <td style="width:81px;height:21px;">
-                    <p align="center">CW1</p>
-                </td>
-                <td style="width:81px;height:21px;">
-                    <p align="center">CW2</p>
-                </td>
-                <td style="width:81px;height:21px;">
-                    <p align="center">CW3</p>
-                </td>
-                <td style="width:81px;height:21px;">
-                    <p align="center">CW4</p>
-                </td>
-                <td style="width:81px;height:21px;">
-                    <p align="center">EXAM</p>
-                </td>
-                <td style="width:81px;height:21px;">
-                    <p align="center">OVERALL</p>
-                </td>
-            </tr>
-            <tr>
-                <td style="width:81px;">
-                    <p align="center">Mean</p>
-                </td>
-                <td style="width:81px;">
-                    <p>&nbsp;</p>
-                </td>
-                <td style="width:81px;">
-                    <p>&nbsp;</p>
-                </td>
-                <td style="width:81px;">
-                    <p>&nbsp;</p>
-                </td>
-                <td style="width:81px;">
-                    <p>&nbsp;</p>
-                </td>
-                <td style="width:81px;">
-                    <p>&nbsp;</p>
-                </td>
-                <td style="width:81px;">
-                    <p>&nbsp;</p>
-                </td>
-            </tr>
-            <tr>
-                <td style="width:81px;">
-                    <p align="center">Median</p>
-                </td>
-                <td style="width:81px;">
-                    <p>&nbsp;</p>
-                </td>
-                <td style="width:81px;">
-                    <p>&nbsp;</p>
-                </td>
-                <td style="width:81px;">
-                    <p>&nbsp;</p>
-                </td>
-                <td style="width:81px;">
-                    <p>&nbsp;</p>
-                </td>
-                <td style="width:81px;">
-                    <p>&nbsp;</p>
-                </td>
-                <td style="width:81px;">
-                    <p>&nbsp;</p>
-                </td>
-            </tr>
-            <tr>
-                <td style="width:81px;">
-                    <p align="center">Standard Deviation</p>
-                </td>
-                <td style="width:81px;">
-                    <p>&nbsp;</p>
-                </td>
-                <td style="width:81px;">
-                    <p>&nbsp;</p>
-                </td>
-                <td style="width:81px;">
-                    <p>&nbsp;</p>
-                </td>
-                <td style="width:81px;">
-                    <p>&nbsp;</p>
-                </td>
-                <td style="width:81px;">
-                    <p>&nbsp;</p>
-                </td>
-                <td style="width:81px;">
-                    <p>&nbsp;</p>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+        <div id="statistical-data">
+            <table border="1" cellpadding="0" cellspacing="0" style="width: 100%">
+                <tbody>
+                    <tr>
+                        <td colspan="7" style="width:568px;background-color:antiquewhite">
+                            <p align="center"><strong>Statistical Data</strong></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:81px;height:21px;">
+                            <p>&nbsp;</p>
+                        </td>
+                        <td style="width:81px;height:21px;">
+                            <p align="center">CW1</p>
+                        </td>
+                        <td style="width:81px;height:21px;">
+                            <p align="center">CW2</p>
+                        </td>
+                        <td style="width:81px;height:21px;">
+                            <p align="center">CW3</p>
+                        </td>
+                        <td style="width:81px;height:21px;">
+                            <p align="center">CW4</p>
+                        </td>
+                        <td style="width:81px;height:21px;">
+                            <p align="center">EXAM</p>
+                        </td>
+                        <td style="width:81px;height:21px;">
+                            <p align="center">OVERALL</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:81px;">
+                            <p align="center">Mean</p>
+                        </td>
+                        <td style="width:81px;">
+                            <p>&nbsp;</p>
+                        </td>
+                        <td style="width:81px;">
+                            <p>&nbsp;</p>
+                        </td>
+                        <td style="width:81px;">
+                            <p>&nbsp;</p>
+                        </td>
+                        <td style="width:81px;">
+                            <p>&nbsp;</p>
+                        </td>
+                        <td style="width:81px;">
+                            <p>&nbsp;</p>
+                        </td>
+                        <td style="width:81px;">
+                            <p>&nbsp;</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:81px;">
+                            <p align="center">Median</p>
+                        </td>
+                        <td style="width:81px;">
+                            <p>&nbsp;</p>
+                        </td>
+                        <td style="width:81px;">
+                            <p>&nbsp;</p>
+                        </td>
+                        <td style="width:81px;">
+                            <p>&nbsp;</p>
+                        </td>
+                        <td style="width:81px;">
+                            <p>&nbsp;</p>
+                        </td>
+                        <td style="width:81px;">
+                            <p>&nbsp;</p>
+                        </td>
+                        <td style="width:81px;">
+                            <p>&nbsp;</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:81px;">
+                            <p align="center">Standard Deviation</p>
+                        </td>
+                        <td style="width:81px;">
+                            <p>&nbsp;</p>
+                        </td>
+                        <td style="width:81px;">
+                            <p>&nbsp;</p>
+                        </td>
+                        <td style="width:81px;">
+                            <p>&nbsp;</p>
+                        </td>
+                        <td style="width:81px;">
+                            <p>&nbsp;</p>
+                        </td>
+                        <td style="width:81px;">
+                            <p>&nbsp;</p>
+                        </td>
+                        <td style="width:81px;">
+                            <p>&nbsp;</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-    <p align="center">&nbsp;</p>
+        <p align="center">&nbsp;</p>
 
-    <p align="center">&nbsp;</p>
+        <p align="center">&nbsp;</p>
 
-    <table border="1" cellpadding="0" cellspacing="0" style="width: 100%">
-        <tbody>
-            <tr>
-                <td colspan="11" style="width:568px;background-color:antiquewhite">
-                    <p align="center"><strong>Grade Distribution Data</strong></p>
-                </td>
-            </tr>
-            <tr>
-                <td style="width:52px;">
-                    <p>&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">0 &ndash; 9</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">10 -19</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">20 -29</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">30 -39</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">40 - &nbsp;49</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">50 - 59</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">60 - 69</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">70 - 79</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">80 - 89</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">90+</p>
-                </td>
-            </tr>
-            <tr>
-                <td style="width:52px;">
-                    <p align="center">CW1</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-            </tr>
-            <tr>
-                <td style="width:52px;">
-                    <p align="center">CW2</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-            </tr>
-            <tr>
-                <td style="width:52px;">
-                    <p align="center">CW3</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-            </tr>
-            <tr>
-                <td style="width:52px;">
-                    <p align="center">CW4</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-            </tr>
-            <tr>
-                <td style="width:52px;">
-                    <p align="center">EX</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-            </tr>
-            <tr>
-                <td style="width:52px;">
-                    <p align="center">OVERALL</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-                <td style="width:52px;">
-                    <p align="center">&nbsp;</p>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+        <div id="grade-distribution-data">
+            <table border="1" cellpadding="0" cellspacing="0" style="width: 100%">
+                <tbody>
+                    <tr>
+                        <td colspan="11" style="width:568px;background-color:antiquewhite">
+                            <p align="center"><strong>Grade Distribution Data</strong></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:52px;">
+                            <p>&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">0 &ndash; 9</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">10 -19</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">20 -29</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">30 -39</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">40 - &nbsp;49</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">50 - 59</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">60 - 69</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">70 - 79</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">80 - 89</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">90+</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:52px;">
+                            <p align="center">CW1</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:52px;">
+                            <p align="center">CW2</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:52px;">
+                            <p align="center">CW3</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:52px;">
+                            <p align="center">CW4</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:52px;">
+                            <p align="center">EX</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:52px;">
+                            <p align="center">OVERALL</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                        <td style="width:52px;">
+                            <p align="center">&nbsp;</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-    <p align="center">&nbsp;</p>
+        <p align="center">&nbsp;</p>
 
-    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
 
-    <table border="1" cellpadding="0" cellspacing="0" style="width: 100%">
-        <tbody>
-            <tr>
-                <td style="width:568px;">
-                    <p><strong>General comments</strong></p>
+        <table border="1" cellpadding="0" cellspacing="0" style="width: 100%">
+            <tbody>
+                <tr>
+                    <td style="width:568px;">
+                        <p><strong>General comments</strong></p>
 
-                    <p>When you complete this section, at a minimum, you should address the following:</p>
+                        <p>When you complete this section, at a minimum, you should address the following:</p>
 
-                    <p>&nbsp;</p>
+                        <p>&nbsp;</p>
 
-                    <ol>
-                        <li>The overview of the Course Leader (to include; comments on available statistics, the range of marks, assessment diet and any issues affecting the delivery of the course this year).</li>
-                        <li>Student Evaluation and Feedback.</li>
-                        <li>Comments of the External Examiner.</li>
-                        <li>A review of the previous year&rsquo;s action plan.</li>
-                    </ol>
-                </td>
-            </tr>
-            <tr>
-                <td style="width:568px;">
-                    <p>&nbsp;</p>
+                        <ol>
+                            <li>The overview of the Course Leader (to include; comments on available statistics, the range of marks, assessment diet and any issues affecting the delivery of the course this year).</li>
+                            <li>Student Evaluation and Feedback.</li>
+                            <li>Comments of the External Examiner.</li>
+                            <li>A review of the previous year&rsquo;s action plan.</li>
+                        </ol>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:568px;">
+                        <p>&nbsp;</p>
 
-                    <p>&nbsp;</p>
+                        <p>&nbsp;</p>
 
-                    <p>&nbsp;</p>
+                        <p>&nbsp;</p>
 
-                    <p>&nbsp;</p>
+                        <p>&nbsp;</p>
 
-                    <p>&nbsp;</p>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                        <p>&nbsp;</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
-    <p>&nbsp;</p>
+        <p>&nbsp;</p>
 
-    <table border="1" cellpadding="0" cellspacing="0" style="width: 100%">
-        <tbody>
-            <tr>
-                <td style="width: 568px;">
-                    <p>
-                        <strong>Action to be taken</strong>
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td style="width: 568px;">
-                    <p>&nbsp;</p>
+        <table border="1" cellpadding="0" cellspacing="0" style="width: 100%">
+            <tbody>
+                <tr>
+                    <td style="width: 568px;">
+                        <p>
+                            <strong>Action to be taken</strong>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 568px;">
+                        <p>&nbsp;</p>
 
-                    <p>&nbsp;</p>
+                        <p>&nbsp;</p>
 
-                    <p>&nbsp;</p>
+                        <p>&nbsp;</p>
 
-                    <p>&nbsp;</p>
+                        <p>&nbsp;</p>
 
-                    <p>&nbsp;</p>
+                        <p>&nbsp;</p>
 
-                    <p>&nbsp;</p>
+                        <p>&nbsp;</p>
 
-                    <p>&nbsp;</p>
+                        <p>&nbsp;</p>
 
-                    <p>&nbsp;</p>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <div class="row">
-        <div class="col-md-12" style="margin-top: 20px">
-            <button type="submit" onclick="return confirm('Are you sure you want to submit!');" class="btn btn-success pull-right">Submit report</button>
+                        <p>&nbsp;</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col-md-12" style="margin-top: 20px">
+                <input type="hidden" name="course-id" id="course-id" value="@Request.QueryString["courseID"]"/>
+                <input type="hidden" name="userlogin" id="userlogin" value="@HttpContext.Current.User.Identity.Name" />
+                <button type="submit" onclick="submitReport();" class="btn btn-success pull-right">Submit report</button>
+            </div>
         </div>
     </div>
-</div>
+}
+@section scripts{
+    <script>
+        $(document).ready(function () {
+
+        });
+
+        function submitReport() {
+
+            var r = confirm("Are you sure you want to submit this report");
+            if (r === true) {
+                var courseID = $("#course-id").val();
+                var StudentCount = $("#student-count").text();
+                var StatisticalData = encodeURIComponent($("#statistical-data").html());
+                var GradeDistributionData = encodeURIComponent($("#grade-distribution-data").html());
+                var Status = 1;
+                var CLID = $("#userlogin").val();
+                var CMID = "CM";
+                var PVCID = "PVC";
+                var DLTID = "DLT";
+                $.ajax({
+                    method: "POST",
+                    url: "/Admin/Report/Create",
+                    data: { courseID: courseID, StudentCount: StudentCount, StatisticalData: StatisticalData, GradeDistributionData: GradeDistributionData, Status: Status, CLID: CLID, CMID: CMID, PVCID: PVCID, DLTID: DLTID },
+                    dataType: "json",
+                    success: function (data) {
+                        if (data != null && data.status) {
+                            alert("Submit successfully !");
+                        }
+                    }
+                });
+            }
+        }
+
+    </script>
+}

@@ -50,7 +50,8 @@
                                         i++;
                                         if (ViewBag.Id == item.ID)
                                         {
-                                            <tr style="background-color: rgba(51, 122, 183, 1);">
+                                            <input type="hidden" id="currentID" name="currentID" value="@ViewBag.Id" />
+                                            <tr style="background-color: #eee;">
                                                 <td>@i</td>
                                                 <td>@item.CourseID</td>
                                                 <td>@item.CMID</td>
@@ -80,7 +81,7 @@
                                     }
                                     if (ViewBag.Id == -1)
                                     {
-                                        <tr style="background-color: rgba(51, 122, 183, 1);">
+                                        <tr style="background-color: #eee;">
                                             <td colspan="4">Report Creating</td>
                                             <td><i style="color: #fff;" class="fa fa-arrow-right"></i></td>
                                         </tr>
@@ -89,14 +90,31 @@
                             </tbody>
                         </table>
                     </div>
-                    <a href="javascript:void(0)" onclick="showModalCreateReport();" class="btn btn-outline btn-primary btn-lg btn-block">Create report</a>
+                    @{
+                        if (ViewBag.groupid == 5)
+                        {
+                            <a href="javascript:void(0)" onclick="showModalCreateReport();" class="btn btn-outline btn-danger btn-lg btn-block">Create report</a>
+                        }
+                        if (ViewBag.groupid == 4)
+                        {
+                            <a href="javascript:void(0)" onclick="approveReport(2);" class="btn btn-outline btn-danger btn-lg btn-block">Approve</a>
+                        }
+                        if (ViewBag.groupid == 3)
+                        {
+                            <a href="javascript:void(0)" onclick="approveReport(3);" class="btn btn-outline btn-danger btn-lg btn-block">Approve</a>
+                        }
+                    }
                 </div>
                 <!-- /.panel-body -->
             </div>
             <!-- /.panel -->
         </div>
         <div class="col-lg-6">
-            @Html.Action("Details", new { id = ViewBag.Id })
+            @if (ViewBag.Id != null)
+            {
+                @Html.Action("Details", new { id = ViewBag.Id })
+            }
+
         </div>
 
     </div>
@@ -111,12 +129,12 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-4">Select Course</div>
-                        <div class="col-md-8"><select id="course" name="course"></select></div>
+                        <div class="col-md-8"><select class="form-control" id="course" name="course"></select></div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-danger" onclick="submitReport()">Submit</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -124,9 +142,19 @@
 
     @section scripts{
         <script>
-
             $(document).ready(function () {
-
+                $.ajax({
+                    method: "GET",
+                    url: "/Report/GetCourseOfCL?id=PVC",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data != null) {
+                            for (var i = 0; i < data.length; i++) {
+                                $("#course").append("<option value=" + data[i].IDCourse + ">" + data[i].IDCourse + "</option>");
+                            }
+                        }
+                    }
+                });
             });
 
             $('tr').click(function () {
@@ -140,6 +168,24 @@
 
             function showModalCreateReport() {
                 $('#modal-create-report').modal('show');
+            }
+
+            function submitReport() {
+                window.location = "/Admin/Report/Create?courseID=" + $("#course").val();
+            }
+
+            function approveReport(status) {
+                var id = $("#currentID").val();
+                $.ajax({
+                    method: "POST",
+                    url: "/Admin/Report/Approve?status=" + status + "&id=" + id,
+                    dataType: "json",
+                    success: function (data) {
+                        if (data != null && data.status) {
+                            alert("Aproved");
+                        }
+                    }
+                });
             }
         </script>
     }
