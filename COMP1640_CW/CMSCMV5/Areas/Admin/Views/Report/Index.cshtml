@@ -1,113 +1,145 @@
 ﻿@model System.Collections.Generic.List<CMSCMV5.DAO.Report>
 
-@{
-    ViewBag.Title = "My report";
-}
+    @{
+        ViewBag.Title = "My report";
+    }
 
-@section style{
-    <style>
-        .table td a {
-            display: block;
-        }
+    @section style{
+        <style>
+            .table td a {
+                display: block;
+            }
 
-        .trdefault.hover {
-            cursor: pointer;
-            background-color: rgba(52, 135, 183, 0.65);
-        }
-    </style>
-}
+            .trdefault.hover {
+                cursor: pointer;
+                background-color: rgba(52, 135, 183, 0.65);
+            }
+        </style>
+    }
 
 
-<div class="row" style="height:15px;"></div>
-<div class="row">
-    <div class="col-lg-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                My reports
-            </div>
-            <!-- /.panel-heading -->
-            <div class="panel-body">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>CourseID</th>
-                                <th>CMID</th>
-                                <th>PVCID</th>
-                                <th>DLTID</th>
-                                <th>Created</th>
-                                <th>Modified</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if (Model != null)
-                            {
-                                int i = 0;
-                                foreach (var item in Model)
+    <div class="row" style="height:15px;"></div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    My reports
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>CourseID</th>
+                                    <th>CMID</th>
+                                    <th>PVCID</th>
+                                    <th>DLTID</th>
+                                    <th>Created</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null)
                                 {
-                                    i++;
-                                    if (ViewBag.Id == item.ID)
+                                    int i = 0;
+                                    foreach (var item in Model)
+                                    {
+                                        i++;
+                                        if (ViewBag.Id == item.ID)
+                                        {
+                                            <tr style="background-color: rgba(51, 122, 183, 1);">
+                                                <td>@i</td>
+                                                <td>@item.CourseID</td>
+                                                <td>@item.CMID</td>
+                                                <td>@item.PVCID</td>
+                                                <td>@item.DLTID</td>
+                                                <td>@item.Created</td>
+                                                <td>@item.Status</td>
+                                                <td><i style="color: #fff;" class="fa fa-arrow-right"></i></td>
+                                            </tr>
+                                        }
+                                        else
+                                        {
+
+                                            <tr class="trdefault">
+                                                <td><a href="@Url.Action("Index", new {id = item.ID})"></a>@i</td>
+                                                <td>@item.CourseID</td>
+                                                <td>@item.CMID</td>
+                                                <td>@item.PVCID</td>
+                                                <td>@item.DLTID</td>
+                                                <td>@item.Created</td>
+                                                <td>@item.Status</td>
+                                                <td></td>
+                                            </tr>
+
+                                        }
+
+                                    }
+                                    if (ViewBag.Id == -1)
                                     {
                                         <tr style="background-color: rgba(51, 122, 183, 1);">
-                                            <td>@i</td>
-                                            <td>@item.CourseID</td>
-                                            <td>@item.CMID</td>
-                                            <td>@item.PVCID</td>
-                                            <td>@item.DLTID</td>
-                                            <td>@item.Created</td>
-                                            <td>@item.Status</td>
+                                            <td colspan="4">Report Creating</td>
                                             <td><i style="color: #fff;" class="fa fa-arrow-right"></i></td>
                                         </tr>
                                     }
-                                    else
-                                    {
-
-                                        <tr class="trdefault">
-                                            <td><a href="@Url.Action("Index", new { id = item.ID })"></a>@i</td>
-                                            <td>@item.CourseID</td>
-                                            <td>@item.CMID</td>
-                                            <td>@item.PVCID</td>
-                                            <td>@item.DLTID</td>
-                                            <td>@item.Created</td>
-                                            <td>@item.Status</td>
-                                            <td></td>
-                                        </tr>
-
-                                    }
-
                                 }
-                                if (ViewBag.Id == -1)
-                                {
-                                    <tr style="background-color: rgba(51, 122, 183, 1);">
-                                        <td colspan="4">Report Creating</td>
-                                        <td><i style="color: #fff;" class="fa fa-arrow-right"></i></td>
-                                    </tr>
-                                }
-                            }
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
+                    <a href="javascript:void(0)" onclick="showModalCreateReport();" class="btn btn-outline btn-primary btn-lg btn-block">Create report</a>
                 </div>
-                <a href="@Url.Action("Create")" class="btn btn-outline btn-primary btn-lg btn-block">Create report</a>
+                <!-- /.panel-body -->
             </div>
-            <!-- /.panel-body -->
+            <!-- /.panel -->
         </div>
-        <!-- /.panel -->
-    </div>
-    <div class="col-lg-6">
-        @Html.Action("Details", new { id = ViewBag.Id })
+        <div class="col-lg-6">
+            @Html.Action("Details", new { id = ViewBag.Id })
+        </div>
+
     </div>
 
-@section scripts{
-    <script>
-        $('tr').click(function () {
-            var link = $(this).find('a').attr('href');
-            if (typeof (link) != "undefined") {
-                window.location = $(this).find('a').attr('href');
+    <div id="modal-create-report" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">Create Report</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">Select Course</div>
+                        <div class="col-md-8"><select id="course" name="course"></select></div>
+                    </div>               
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Submit</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    @section scripts{
+        <script>
+
+            $(document).ready(function() {
+                
+            });
+
+            $('tr').click(function () {
+                var link = $(this).find('a').attr('href');
+                if (typeof (link) != "undefined") {
+                    window.location = $(this).find('a').attr('href');
+                }
+            }).hover(function () {
+                $(this).toggleClass('hover');
+            });
+
+            function showModalCreateReport() {
+                $('#modal-create-report').modal('show');
             }
-        }).hover(function () {
-            $(this).toggleClass('hover');
-        });
-    </script>
-}
+        </script>
+    }

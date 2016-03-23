@@ -17,14 +17,14 @@ namespace CMSCMV5.Areas.Admin.Controllers
             using (var db = new Entities())
             {
                 var data = db.Reports.Where(x => x.CLID == currenUser).ToList();
-                if (id == 0 && data.Count> 0)
+                if (id == 0 && data.Count > 0)
                 {
                     ViewBag.Id = data[0].ID;
                 }
                 else
                 {
                     ViewBag.Id = id;
-                }                
+                }
                 return View(data);
             }
         }
@@ -102,6 +102,18 @@ namespace CMSCMV5.Areas.Admin.Controllers
             catch
             {
                 return View();
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetCourseOfCl(string id)
+        {
+            using (var db = new Entities())
+            {
+                var data = db.Courses.Where(x => x.CLID == id).ToList();
+                var courses = data.Select(course => new Course() { IDCourse = course.IDCourse, CLID = course.CLID }).ToList();
+
+                return Json(courses, JsonRequestBehavior.AllowGet);
             }
         }
     }
