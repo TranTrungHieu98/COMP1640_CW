@@ -24,13 +24,12 @@ namespace CMSCMV5.DAO
     
         public int IDCourse { get; set; }
         public string CMID { get; set; }
-        [DataType(DataType.Date)]
         public string Dates { get; set; }
         public Nullable<int> Credits { get; set; }
         public Nullable<int> Days { get; set; }
-        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
+        [DisplayFormat(DataFormatString ="{0:MM-dd-yyyy}")]
         public Nullable<System.DateTime> BTime { get; set; }
-        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}")]
         public Nullable<System.DateTime> ETime { get; set; }
         public string Location { get; set; }
         public string FID { get; set; }

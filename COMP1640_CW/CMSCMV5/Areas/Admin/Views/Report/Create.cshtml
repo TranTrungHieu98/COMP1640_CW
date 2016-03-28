@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Report";
 }
-
+<script src="~/Content/ckeditor/ckeditor.js"></script>
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
@@ -16,12 +16,12 @@
 </section>
 @if (Model != null)
 {
-    <div style="margin: 0 auto; margin-top: 10px;width: 600px;">
+    <div id="contentReport" style="margin: 0 auto; margin-top: 10px;width: 600px;">
         <table border="1" cellpadding="0" cellspacing="0" style="width: 100%">
             <tbody>
                 <tr>
                     <td colspan="2" style="width:568px; background-color:antiquewhite">
-                        <p align="center"><strong>COURSE MONITORING REPORT</strong></p>
+                        <p style="text-align:center"><strong>COURSE MONITORING REPORT</strong></p>
                     </td>
                 </tr>
                 <tr>
@@ -90,7 +90,7 @@
                 <tbody>
                     <tr>
                         <td colspan="7" style="width:568px;background-color:antiquewhite">
-                            <p align="center"><strong>Statistical Data</strong></p>
+                            <p style="text-align:center"><strong>Statistical Data</strong></p>
                         </td>
                     </tr>
                     <tr>
@@ -164,7 +164,7 @@
                     </tr>
                     <tr>
                         <td style="width:81px;">
-                            <p align="center">Standard Deviation</p>
+                            <p style="text-align:center">Standard Deviation</p>
                         </td>
                         <td style="width:81px;">
                             <p>&nbsp;</p>
@@ -198,7 +198,7 @@
                 <tbody>
                     <tr>
                         <td colspan="11" style="width:568px;background-color:antiquewhite">
-                            <p align="center"><strong>Grade Distribution Data</strong></p>
+                            <p style="text-align:center"><strong>Grade Distribution Data</strong></p>
                         </td>
                     </tr>
                     <tr>
@@ -494,7 +494,7 @@
             <tbody>
                 <tr>
                     <td style="width: 568px;">
-                        <p>
+                        <p style="text-align:center">
                             <strong>Action to be taken</strong>
                         </p>
                     </td>
@@ -520,12 +520,12 @@
                 </tr>
             </tbody>
         </table>
-        <div class="row">
-            <div class="col-md-12" style="margin-top: 20px">
-                <input type="hidden" name="course-id" id="course-id" value="@Request.QueryString["courseID"]"/>
-                <input type="hidden" name="userlogin" id="userlogin" value="@HttpContext.Current.User.Identity.Name" />
-                <button type="submit" onclick="submitReport();" class="btn btn-success pull-right">Submit report</button>
-            </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="margin-top: 20px">
+            <input type="hidden" name="course-id" id="course-id" value="@Request.QueryString["courseID"]" />
+            <input type="hidden" name="userlogin" id="userlogin" value="@HttpContext.Current.User.Identity.Name" />
+            <button type="submit" onclick="submitReport();" class="btn btn-success pull-right">Submit report</button>
         </div>
     </div>
 }
@@ -562,5 +562,21 @@
             }
         }
 
+    </script>
+    <script language="javascript" type="text/javascript">
+        var ckedittor;
+        function createEditor(langguaeCode, id) {
+            var editor = CKEDITOR.replace(id, {
+                toolbar: [
+	                { name: 'insert', items: ['Source', 'Table', 'JustifyCenter', 'Bold', 'Italic', 'Underline', 'NumberedList', 'BulletedList'] },
+	                { name: 'styles', items: ['Format'] }
+                ]
+            });
+            CKEDITOR.config.height = 800;
+            CKEDITOR.config.language = 'en';
+        }
+        $(function () {
+            createEditor('en', 'contentReport')
+        });
     </script>
 }

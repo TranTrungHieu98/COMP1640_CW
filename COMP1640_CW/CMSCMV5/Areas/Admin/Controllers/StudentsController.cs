@@ -39,7 +39,7 @@ namespace CMSCMV5.Areas.Admin.Controllers
         // GET: Admin/Students/Create
         public ActionResult Create()
         {
-            ViewBag.account = new SelectList(db.asp_User, "account", "password");
+            ViewBag.account = new SelectList(db.asp_User, "account", "account");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace CMSCMV5.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.account = new SelectList(db.asp_User, "account", "password", student.account);
+            ViewBag.account = new SelectList(db.asp_User, "account", "account", student.account);
             return View(student);
         }
 
