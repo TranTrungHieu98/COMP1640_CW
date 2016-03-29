@@ -38,17 +38,7 @@
                         <a href="@Url.Action("Index", "Report")">
                             <i class="fa fa-users"></i> <span>My report</span>
                         </a>
-                    </li>
-                    @{
-                        if (UserDao.GetGroupOfUser(currentUser) > 0)
-                        {
-                            <li>
-                                <a href="@Url.Action("Create", "Report")">
-                                    <i class="fa fa-user"></i> <span>Create report</span>
-                                </a>
-                            </li>
-                        }
-                    }
+                    </li>                   
 
                 </ul>
             </li>
