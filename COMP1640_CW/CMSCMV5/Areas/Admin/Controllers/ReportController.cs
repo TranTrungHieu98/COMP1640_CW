@@ -239,5 +239,21 @@ namespace CMSCMV5.Areas.Admin.Controllers
                 return Json(courses, JsonRequestBehavior.AllowGet);
             }
         }
-    }
+
+        public string GetEmailLogin()
+        {
+            string currenUser = User.Identity.Name;
+
+            using (var db = new Entities())
+            {
+                //get group
+                var userGroup = db.asp_User.FirstOrDefault(x => x.account == currenUser);
+                if (userGroup != null)
+                {
+                    return userGroup.email;
+                }
+            }
+
+            return null;
+        }
 }
