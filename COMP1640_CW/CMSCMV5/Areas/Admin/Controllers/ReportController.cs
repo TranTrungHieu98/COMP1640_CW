@@ -225,7 +225,7 @@ namespace CMSCMV5.Areas.Admin.Controllers
             using (var db = new Entities())
             {
                 var data = db.Courses.Where(x => x.CLID == id).ToList();
-                var courses = data.Select(course => new Course() { IDCourse = course.IDCourse, CLID = course.CLID }).ToList();
+                var courses = data.Select(course => new Course() { IDCourse = course.IDCourse, Title = course.Title }).ToList();
 
                 return Json(courses, JsonRequestBehavior.AllowGet);
             }
