@@ -1,4 +1,8 @@
-﻿<aside class="left-side sidebar-offcanvas">
+﻿@using CMSCMV5.Areas.Admin.Bussiness
+@{
+    var currentUser = User.Identity.Name;
+}
+<aside class="left-side sidebar-offcanvas">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
         <!-- Sidebar user panel -->
@@ -35,53 +39,68 @@
                             <i class="fa fa-users"></i> <span>My report</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="@Url.Action("Create", "Report")">
-                            <i class="fa fa-user"></i> <span>Create report</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="@Url.Action("Index", "Classes")">
-                    <i class="fa fa-th"></i> <span>Classes</span>
-                </a>
-            </li>
-            <li>
-                <a href=" @Url.Action("Index","Courses1")">
-                    <i class="fa fa-picture-o"></i> <span>Courses</span>
-                </a>
-            </li>
-            <li>
-                <a href="@Url.Action("Index","Students")">
-                    <i class="fa fa-pencil-square-o"></i> <span>Students</span>
-                </a>
-            </li>
-            <li>
-                <a href="@Url.Action("Index","Grades")">
-                    <i class="fa fa-suitcase"></i> <span>Grades</span>
-                </a>
-            </li>
+                    @{
+                        if (UserDao.GetGroupOfUser(currentUser) > 0)
+                        {
+                            <li>
+                                <a href="@Url.Action("Create", "Report")">
+                                    <i class="fa fa-user"></i> <span>Create report</span>
+                                </a>
+                            </li>
+                        }
+                    }
 
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-cog"></i>
-                    <span>Management Role</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li>
-                        <a href="@Url.Action("ListGroup", "ManagerRole")">
-                            <i class="fa fa-users"></i> <span>Management group role</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("ListAccount", "ManagerRole")">
-                            <i class="fa fa-user"></i> <span>Management Account</span>
-                        </a>
-                    </li>
                 </ul>
             </li>
+            @{
+                if (UserDao.GetGroupOfUser(currentUser) > 0)
+                {
+                    <li>
+                        <a href="@Url.Action("Index", "Classes")">
+                            <i class="fa fa-th"></i> <span>Classes</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href=" @Url.Action("Index", "Courses1") ">
+                            <i class="fa fa-picture-o"></i> <span>Courses</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index","Students")">
+                            <i class="fa fa-pencil-square-o"></i> <span>Students</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "Grades")">
+                            <i class="fa fa-suitcase"></i> <span>Grades</span>
+                        </a>
+                    </li>
+
+                    if (UserDao.GetGroupOfUser(currentUser) == 1)
+                    {
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-cog"></i>
+                                <span>Management Role</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li>
+                                    <a href="@Url.Action("ListGroup", "ManagerRole")">
+                                        <i class="fa fa-users"></i> <span>Management group role</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("ListAccount", "ManagerRole")">
+                                        <i class="fa fa-user"></i> <span>Management Account</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+
+                }
+            }
         </ul>
     </section>
     <!-- /.sidebar -->

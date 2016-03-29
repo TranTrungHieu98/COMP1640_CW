@@ -79,6 +79,20 @@ namespace CMSCMV5.Areas.Admin.Controllers
                         return View(data);
                     }
 
+                    if (groupid == 0)
+                    {
+                        var data = db.Reports.Where(x => x.Status == 3).ToList();
+                        if (id == 0 && data.Count > 0)
+                        {
+                            ViewBag.Id = data[0].ID;
+                        }
+                        else
+                        {
+                            ViewBag.Id = id;
+                        }
+                        return View(data);
+                    }
+
                 }
                 return View();
             }
