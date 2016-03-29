@@ -54,10 +54,11 @@ namespace CMSCMV5.Areas.Admin.Controllers
                 db.Classes.Add(@class);
                 db.SaveChanges();
                 return RedirectToAction("Index");
-            }
+            }else if(ModelState.IsValid)
 
             ViewBag.CourseID = new SelectList(db.Courses, "IDCourse", "CMID", @class.CourseID);
             return View(@class);
+
         }
 
         // GET: Admin/Classes/Edit/5
