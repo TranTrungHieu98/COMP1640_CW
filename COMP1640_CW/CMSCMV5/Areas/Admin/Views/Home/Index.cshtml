@@ -1,7 +1,11 @@
-﻿@{
+﻿@using CMSCMV5.Areas.Admin.Bussiness
+@{
     ViewBag.Title = "Index";
-}
 
+}
+@{
+    var currentUser = User.Identity.Name;
+}
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
@@ -15,96 +19,98 @@
 </section>
 <!-- Main content -->
 <section class="content">
-    <!-- Small boxes (Stat box) -->
-    <div class="row">
-        <div class="col-lg-3 col-xs-6">
-            <!-- small box -->
-            <div class="small-box bg-aqua">
-                <div class="inner">
-                    <h3>
-                        @ViewBag.countOderNew
-                    </h3>
-                    <p>
-                        Report
-                    </p>
+    @if (UserDao.GetGroupOfUser(currentUser) > 0)
+    {
+            <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <h3>
+                            @ViewBag.countOderNew
+                        </h3>
+                        <p>
+                            Report
+                        </p>
+                    </div>
+                    <a href="/Admin/Report/Index" class="small-box-footer">
+                        More info <i class="fa fa-arrow-circle-right"></i>
+                    </a>
                 </div>
-                <a href="/Admin/Report/Index" class="small-box-footer">
-                    More info <i class="fa fa-arrow-circle-right"></i>
-                </a>
-            </div>
-        </div><!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-            <!-- small box -->
-            <div class="small-box bg-green">
-                <div class="inner">
-                    <h3>
-                        @ViewBag.countOderDone
-                    </h3>
-                    <p>
-                        Classes
-                    </p>
-                </div>
-                
-                <a href="/Admin/Classes/Index" class="small-box-footer">
-                    More info <i class="fa fa-arrow-circle-right"></i>
-                </a>
-            </div>
-        </div><!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-            <!-- small box -->
-            <div class="small-box bg-yellow">
-                <div class="inner">
-                    <h3>
-                        @ViewBag.countOderPenDing
-                    </h3>
-                    <p>
-                        Students
-                    </p>
-                </div>
-               
-                <a href="/Admin/Students/Index" class="small-box-footer">
-                    More info <i class="fa fa-arrow-circle-right"></i>
-                </a>
-            </div>
-        </div><!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-            <!-- small box -->
-            <div class="small-box bg-red">
-                <div class="inner">
-                    <h3>
-                        
-                    </h3>
-                    <p>
-                       Courses
-                    </p>
-                </div>
-         
-                <a href="/Admin/Courses1/Index" class="small-box-footer">
-                    More info <i class="fa fa-arrow-circle-right"></i>
-                </a>
-            </div>
-        </div><!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-            <!-- small box -->
-            <div class="small-box bg-red">
-                <div class="inner">
-                    <h3></h3>
-                    <p>
-                        Grades
-                    </p>
-                </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-green">
+                    <div class="inner">
+                        <h3>
+                            @ViewBag.countOderDone
+                        </h3>
+                        <p>
+                            Classes
+                        </p>
+                    </div>
 
-                <a href="/Admin/Grades/Index" class="small-box-footer">
-                    More info <i class="fa fa-arrow-circle-right"></i>
-                </a>
-            </div>
-        </div><!-- ./col -->
-    </div><!-- /.row -->
+                    <a href="/Admin/Classes/Index" class="small-box-footer">
+                        More info <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-yellow">
+                    <div class="inner">
+                        <h3>
+                            @ViewBag.countOderPenDing
+                        </h3>
+                        <p>
+                            Students
+                        </p>
+                    </div>
+
+                    <a href="/Admin/Students/Index" class="small-box-footer">
+                        More info <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-red">
+                    <div class="inner">
+                        <h3></h3>
+                        <p>
+                            Courses
+                        </p>
+                    </div>
+
+                    <a href="/Admin/Courses1/Index" class="small-box-footer">
+                        More info <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-red">
+                    <div class="inner">
+                        <h3></h3>
+                        <p>
+                            Grades
+                        </p>
+                    </div>
+
+                    <a href="/Admin/Grades/Index" class="small-box-footer">
+                        More info <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div><!-- ./col -->
+        </div><!-- /.row -->
     <!-- top row -->
-    <div class="row">
-        <div class="col-xs-12 connectedSortable">
-        </div><!-- /.col -->
-    </div>
+        <div class="row">
+            <div class="col-xs-12 connectedSortable">
+            </div><!-- /.col -->
+        </div>
+    }
+
 </section>
 
 
