@@ -127,7 +127,11 @@ namespace CMSCMV5.Areas.Admin.Controllers
             {
                 using (var db = new Entities())
                 {
-                    report.Created = DateTime.Now;                    
+                    report.Created = DateTime.Now;
+
+                    var emailOfCm = GetEmailLogin(report.CMID);
+                    //call sent email
+
                     db.Reports.Add(report);
                     db.SaveChanges();
                     return Json(new { status = true }, JsonRequestBehavior.AllowGet);
@@ -240,14 +244,14 @@ namespace CMSCMV5.Areas.Admin.Controllers
             }
         }
 
-        public string GetEmailLogin()
+        public string GetEmailLogin(string username)
         {
             string currenUser = User.Identity.Name;
 
             using (var db = new Entities())
             {
                 //get group
-                var userGroup = db.asp_User.FirstOrDefault(x => x.account == currenUser);
+                var userGroup = db.asp_User.FirstOrDefault(x => x.userName == username);
                 if (userGroup != null)
                 {
                     return userGroup.email;
