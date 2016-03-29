@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CMSCMV5.DAO;
+using MTOLVN.Areas.Site.Models;
 
 namespace CMSCMV5.Areas.Admin.Controllers
 {
@@ -157,6 +158,14 @@ namespace CMSCMV5.Areas.Admin.Controllers
                     {
                         update.Status = status;
                         db.SaveChanges();
+
+                        //call sent mail
+
+                        var pathHtml = Server.MapPath("bodyEmail.html");
+                        var body = System.IO.File.ReadAllText(pathHtml);
+                        body = String.Format(body, "", DateTime.Now.ToString("hh:mm dd-MM-yyyy"), "");
+                        new MailModel().SentMail(new MailModel() { Body = body, From = "Muatheonline.vn <sales@muatheonline.vn>", Subject = "Thông tin tìm lại mật khẩu mới tại muatheonline.vn", To = toEmail });
+
                         return Json(new { status = true }, JsonRequestBehavior.AllowGet);
                     }
                 }
