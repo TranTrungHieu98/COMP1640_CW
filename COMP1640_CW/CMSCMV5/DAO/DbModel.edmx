@@ -109,6 +109,7 @@
           <Property Name="DLTID" Type="nvarchar" MaxLength="32" />
           <Property Name="Created" Type="datetime" />
           <Property Name="Modified" Type="datetime" />
+          <Property Name="Comment" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Student">
           <Key>
@@ -580,6 +581,7 @@
           <NavigationProperty Name="asp_User1" Relationship="DBModel.FK_Report_asp_User1" FromRole="Report" ToRole="asp_User" />
           <NavigationProperty Name="asp_User2" Relationship="DBModel.FK_Report_asp_User2" FromRole="Report" ToRole="asp_User" />
           <NavigationProperty Name="asp_User3" Relationship="DBModel.FK_Report_asp_User3" FromRole="Report" ToRole="asp_User" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Student">
           <Key>
@@ -835,6 +837,7 @@
           <EntitySetMapping Name="Reports">
             <EntityTypeMapping TypeName="DBModel.Report">
               <MappingFragment StoreEntitySet="Report">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="Modified" ColumnName="Modified" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="DLTID" ColumnName="DLTID" />

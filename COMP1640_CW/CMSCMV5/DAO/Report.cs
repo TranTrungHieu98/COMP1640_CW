@@ -26,6 +26,7 @@ namespace CMSCMV5.DAO
         public string DLTID { get; set; }
         public Nullable<System.DateTime> Created { get; set; }
         public Nullable<System.DateTime> Modified { get; set; }
+        public string Comment { get; set; }
     
         public virtual asp_User asp_User { get; set; }
         public virtual asp_User asp_User1 { get; set; }

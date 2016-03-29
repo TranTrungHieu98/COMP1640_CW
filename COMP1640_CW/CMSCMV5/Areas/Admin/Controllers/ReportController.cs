@@ -170,6 +170,33 @@ namespace CMSCMV5.Areas.Admin.Controllers
             return Json(new { status = false }, JsonRequestBehavior.AllowGet);
         }
 
+        // POST: Admin/Report/Edit/5
+        [HttpPost]
+        public ActionResult Comment(int id, string comment)
+        {
+            try
+            {
+                using (var db = new Entities())
+                {
+                    var update = db.Reports.FirstOrDefault(x => x.ID == id);
+                    if (update != null)
+                    {
+                        update.Comment = comment;
+                        db.SaveChanges();
+                        return Json(new { status = true }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+
+            }
+            catch
+            {
+                return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+        }
+
+
         // GET: Admin/Report/Delete/5
         public ActionResult Delete(int id)
         {
