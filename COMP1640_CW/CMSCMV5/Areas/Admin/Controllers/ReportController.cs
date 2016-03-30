@@ -14,8 +14,8 @@ namespace CMSCMV5.Areas.Admin.Controllers
         // GET: Admin/Report
         public ActionResult Index(int id = 0)
         {
-            string currenUser = User.Identity.Name;            
-            
+            string currenUser = User.Identity.Name;
+
             using (var db = new Entities())
             {
                 //get group
@@ -134,12 +134,12 @@ namespace CMSCMV5.Areas.Admin.Controllers
 
                     db.Reports.Add(report);
                     db.SaveChanges();
-                    return Json(new { status = true }, JsonRequestBehavior.AllowGet);
+                    return Json(new {status = true}, JsonRequestBehavior.AllowGet);
                 }
             }
             catch
             {
-                return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+                return Json(new {status = false}, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -168,19 +168,25 @@ namespace CMSCMV5.Areas.Admin.Controllers
                         var pathHtml = Server.MapPath("bodyEmail.html");
                         var body = System.IO.File.ReadAllText(pathHtml);
                         body = String.Format(body, "", DateTime.Now.ToString("hh:mm dd-MM-yyyy"), "");
-                        new MailModel().SentMail(new MailModel() { Body = body, From = "Muatheonline.vn <sales@muatheonline.vn>", Subject = "Thông tin tìm lại mật khẩu mới tại muatheonline.vn", To = toEmail });
+                        new MailModel().SentMail(new MailModel()
+                        {
+                            Body = body,
+                            From = "Muatheonline.vn <sales@muatheonline.vn>",
+                            Subject = "Thông tin tìm lại mật khẩu mới tại muatheonline.vn",
+                            To = toEmail
+                        });
 
-                        return Json(new { status = true }, JsonRequestBehavior.AllowGet);
+                        return Json(new {status = true}, JsonRequestBehavior.AllowGet);
                     }
                 }
 
             }
             catch
             {
-                return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+                return Json(new {status = false}, JsonRequestBehavior.AllowGet);
             }
 
-            return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+            return Json(new {status = false}, JsonRequestBehavior.AllowGet);
         }
 
         // POST: Admin/Report/Edit/5
@@ -196,17 +202,17 @@ namespace CMSCMV5.Areas.Admin.Controllers
                     {
                         update.Comment = comment;
                         db.SaveChanges();
-                        return Json(new { status = true }, JsonRequestBehavior.AllowGet);
+                        return Json(new {status = true}, JsonRequestBehavior.AllowGet);
                     }
                 }
 
             }
             catch
             {
-                return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+                return Json(new {status = false}, JsonRequestBehavior.AllowGet);
             }
 
-            return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+            return Json(new {status = false}, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -238,7 +244,8 @@ namespace CMSCMV5.Areas.Admin.Controllers
             using (var db = new Entities())
             {
                 var data = db.Courses.Where(x => x.CLID == id).ToList();
-                var courses = data.Select(course => new Course() { IDCourse = course.IDCourse, Title = course.Title }).ToList();
+                var courses =
+                    data.Select(course => new Course() {IDCourse = course.IDCourse, Title = course.Title}).ToList();
 
                 return Json(courses, JsonRequestBehavior.AllowGet);
             }
@@ -260,4 +267,5 @@ namespace CMSCMV5.Areas.Admin.Controllers
 
             return null;
         }
+    }
 }
