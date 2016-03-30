@@ -72,6 +72,7 @@
           <Property Name="Location" Type="nvarchar" MaxLength="50" />
           <Property Name="FID" Type="nvarchar" MaxLength="32" />
           <Property Name="CLID" Type="nvarchar" MaxLength="32" />
+          <Property Name="Title" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="Grade">
           <Key>
@@ -537,6 +538,7 @@
           <NavigationProperty Name="asp_User2" Relationship="DBModel.FK_Course_asp_User2" FromRole="Course" ToRole="asp_User" />
           <NavigationProperty Name="Classes" Relationship="DBModel.FK_Class_Course" FromRole="Course" ToRole="Class" />
           <NavigationProperty Name="Grades" Relationship="DBModel.FK_Grade_Course1" FromRole="Course" ToRole="Grade" />
+          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Grade">
           <Key>
@@ -799,6 +801,7 @@
           <EntitySetMapping Name="Courses">
             <EntityTypeMapping TypeName="DBModel.Course">
               <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="CLID" ColumnName="CLID" />
                 <ScalarProperty Name="FID" ColumnName="FID" />
                 <ScalarProperty Name="Location" ColumnName="Location" />

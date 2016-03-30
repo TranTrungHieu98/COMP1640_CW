@@ -31,6 +31,7 @@ namespace CMSCMV5.DAO
         public string Location { get; set; }
         public string FID { get; set; }
         public string CLID { get; set; }
+        public string Title { get; set; }
     
         public virtual asp_User asp_User { get; set; }
         public virtual asp_User asp_User1 { get; set; }

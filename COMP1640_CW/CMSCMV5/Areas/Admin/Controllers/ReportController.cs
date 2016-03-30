@@ -4,17 +4,21 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CMSCMV5.DAO;
+using MTOLVN.Areas.Site.Models;
 
 namespace CMSCMV5.Areas.Admin.Controllers
 {
     //[Authorize(Roles = "0")]
     public class ReportController : Controller
     {
+        Report report;
+      
+
         // GET: Admin/Report
         public ActionResult Index(int id = 0)
         {
-            string currenUser = User.Identity.Name;            
-            
+            string currenUser = User.Identity.Name;
+
             using (var db = new Entities())
             {
                 //get group
@@ -126,9 +130,19 @@ namespace CMSCMV5.Areas.Admin.Controllers
             {
                 using (var db = new Entities())
                 {
-                    report.Created = DateTime.Now;                    
+                    report.Created = DateTime.Now;
+
+                    var emailOfCm = GetEmailLogin(report.CMID);
+                    //call sent email
+
+                    //var pathHtml = Server.MapPath("bodyEmail.html");
+                    //var body = System.IO.File.ReadAllText(pathHtml);
+                    //body = String.Format(body, "", DateTime.Now.ToString("hh:mm dd-MM-yyyy"), "");
+                    //var data = db.Courses.FirstOrDefault(x => x.IDCourse == courseID);
                     db.Reports.Add(report);
                     db.SaveChanges();
+                    MailSender mailSender = new MailSender();
+                    mailSender.sendMail(emailOfCm, "Check Report", "Report was submit", "gmail");
                     return Json(new { status = true }, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -152,11 +166,20 @@ namespace CMSCMV5.Areas.Admin.Controllers
             {
                 using (var db = new Entities())
                 {
+
+
+                    var emailOfCl = GetEmailLogin(report.CLID);
+                    //var emailOfCM = GetEmailLogin(report.CMID);
+                    //var emailOfPVC = GetEmailLogin(report.PVCID);
                     var update = db.Reports.FirstOrDefault(x => x.ID == id);
                     if (update != null)
                     {
                         update.Status = status;
                         db.SaveChanges();
+                        MailSender mailSender = new MailSender();
+                        mailSender.sendMail(emailOfCl, "Check Report", "Report was Approve", "gmail");
+                        //mailSender.sendMail("nguyenvannam19942802@gmail.com", "Check Report", "Report was Approve", "gmail");
+                        //mailSender.sendMail("nguyenvannam19942802@gmail.com", "Check Report", "Report was Approve", "gmail");
                         return Json(new { status = true }, JsonRequestBehavior.AllowGet);
                     }
                 }
@@ -225,10 +248,27 @@ namespace CMSCMV5.Areas.Admin.Controllers
             using (var db = new Entities())
             {
                 var data = db.Courses.Where(x => x.CLID == id).ToList();
-                var courses = data.Select(course => new Course() { IDCourse = course.IDCourse, CLID = course.CLID }).ToList();
+                var courses = data.Select(course => new Course() { IDCourse = course.IDCourse, Title = course.Title }).ToList();
 
                 return Json(courses, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        public string GetEmailLogin(string username)
+        {
+            string currenUser = User.Identity.Name;
+
+            using (var db = new Entities())
+            {
+                //get group
+                var userGroup = db.asp_User.FirstOrDefault(x => x.userName == username);
+                if (userGroup != null)
+                {
+                    return userGroup.email;
+                }
+            }
+
+            return null;
         }
     }
 }
