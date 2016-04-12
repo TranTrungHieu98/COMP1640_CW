@@ -189,10 +189,7 @@
     <Compile Include="Areas\Admin\Models\BanerModel.cs" />
     <Compile Include="Areas\Admin\Models\LoginModel.cs" />
     <Compile Include="Areas\Admin\Models\MailModel.cs" />
-<<<<<<< HEAD
     <Compile Include="Areas\Admin\Models\MailSender.cs" />
-=======
->>>>>>> f5ef81a8dd65ed8c6fc9d0e796bcb3a2dfdba0fc
     <Compile Include="Areas\Admin\Models\ManagerRoleModel.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Models\CommentModel.cs" />
@@ -1606,11 +1603,8 @@
     <Content Include="Areas\Admin\Views\Classes\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Classes\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Classes\Index.cshtml" />
-<<<<<<< HEAD
     <Content Include="ClassDiagram1.cd" />
-=======
     <Content Include="Content\ckeditor\skins\kama\readme.md" />
->>>>>>> f5ef81a8dd65ed8c6fc9d0e796bcb3a2dfdba0fc
     <None Include="Properties\PublishProfiles\annamshop.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
