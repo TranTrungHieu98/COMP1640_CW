@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using CMSCMV5.DAO;
 using MTOLVN.Areas.Site.Models;
+using Newtonsoft.Json;
 
 namespace CMSCMV5.Areas.Admin.Controllers
 {
@@ -143,6 +144,76 @@ namespace CMSCMV5.Areas.Admin.Controllers
             }
         }
 
+        [HttpGet]
+        public String GetReportJson(int status)
+        {
+            using (var db = new Entities())
+            {
+                var kq = new List<int>();
+
+                //m1
+                var b1 = new DateTime(DateTime.Now.Year, 1, 1);
+                var e1 = new DateTime(DateTime.Now.Year, 2, 1);
+                kq.Add(CountReport(status, b1, e1));
+
+                //m2
+                var b2 = new DateTime(DateTime.Now.Year, 2, 1);
+                var e2 = new DateTime(DateTime.Now.Year, 3, 1);
+                kq.Add(CountReport(status, b2, e2));
+
+                //m3
+                var b3 = new DateTime(DateTime.Now.Year, 3, 1);
+                var e3 = new DateTime(DateTime.Now.Year, 4, 1);
+                kq.Add(CountReport(status, b3, e3));
+
+                var b4 = new DateTime(DateTime.Now.Year, 4, 1);
+                var e4 = new DateTime(DateTime.Now.Year, 5, 1);
+                kq.Add(CountReport(status, b4, e4));
+
+                var b5 = new DateTime(DateTime.Now.Year, 5, 1);
+                var e5 = new DateTime(DateTime.Now.Year, 6, 1);
+                kq.Add(CountReport(status, b5, e5));
+
+                var b6 = new DateTime(DateTime.Now.Year, 6, 1);
+                var e6 = new DateTime(DateTime.Now.Year, 7, 1);
+                kq.Add(CountReport(status, b6, e6));
+
+                var b7 = new DateTime(DateTime.Now.Year, 7, 1);
+                var e7 = new DateTime(DateTime.Now.Year, 8, 1);
+                kq.Add(CountReport(status, b7, e7));
+
+
+                var b8 = new DateTime(DateTime.Now.Year, 8, 1);
+                var e8 = new DateTime(DateTime.Now.Year, 9, 1);
+                kq.Add(CountReport(status, b8, e8));
+
+                var b9 = new DateTime(DateTime.Now.Year, 9, 1);
+                var e9 = new DateTime(DateTime.Now.Year, 10, 1);
+                kq.Add(CountReport(status, b9, e9));
+
+                var b10 = new DateTime(DateTime.Now.Year, 10, 1);
+                var e10 = new DateTime(DateTime.Now.Year, 11, 1);
+                kq.Add(CountReport(status, b10, e10));
+
+                var b11 = new DateTime(DateTime.Now.Year, 11, 1);
+                var e11 = new DateTime(DateTime.Now.Year, 12, 1);
+                kq.Add(CountReport(status, b11, e11));
+
+                var b12 = new DateTime(DateTime.Now.Year, 12, 1);
+                var e12 = new DateTime(DateTime.Now.Year, 1, 1).AddYears(1);
+                kq.Add(CountReport(status, b12, e12));
+                return JsonConvert.SerializeObject(kq);                
+            }
+        }
+        
+        public static int CountReport(int status, DateTime start, DateTime endDate)
+        {
+            using (var db = new Entities())
+            {
+                return db.Reports.Where(x => x.Status == status && x.Created >= start && x.Created < endDate).Count();
+            }                
+        }
+
         // GET: Admin/Report/Edit/5
         public ActionResult Edit(int id)
         {
@@ -173,7 +244,7 @@ namespace CMSCMV5.Areas.Admin.Controllers
                             Body = body,
                             From = "Muatheonline.vn <sales@muatheonline.vn>",
                             Subject = "Thông tin tìm lại mật khẩu mới tại muatheonline.vn",
-                            To = toEmail
+                            //To = toEmail
                         });
 
                         return Json(new {status = true}, JsonRequestBehavior.AllowGet);
@@ -188,6 +259,7 @@ namespace CMSCMV5.Areas.Admin.Controllers
 
             return Json(new {status = false}, JsonRequestBehavior.AllowGet);
         }
+
 
         // POST: Admin/Report/Edit/5
         [HttpPost]
