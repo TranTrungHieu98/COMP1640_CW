@@ -1,175 +1,191 @@
 ﻿@model System.Collections.Generic.List<CMSCMV5.DAO.Report>
 
-    @{
-        ViewBag.Title = "My report";
-    }
+@{
+    ViewBag.Title = "My report";
+}
 
-    @section style{
-        <style>
-            .table td a {
-                display: block;
-            }
+@section style{
+    <style>
+        .table td a {
+            display: block;
+        }
 
-            .trdefault.hover {
-                cursor: pointer;
-                background-color: rgba(52, 135, 183, 0.65);
-            }
-        </style>
-    }
+        .trdefault.hover {
+            cursor: pointer;
+            background-color: rgba(52, 135, 183, 0.65);
+        }
+    </style>
+}
 
 
-    <div class="row" style="height:15px;"></div>
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    My reports
-                </div>
-                <!-- /.panel-heading -->
-                <div class="panel-body">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>CourseID</th>
-                                    <th>CMID</th>
-                                    <th>PVCID</th>
-                                    <th>DLTID</th>
-                                    <th>Created</th>
-                                    <th>Status</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if (Model != null)
+<div class="row" style="height:15px;"></div>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                My reports
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>CourseID</th>
+                                <th>CMID</th>
+                                <th>PVCID</th>
+                                <th>DLTID</th>
+                                <th>Created</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+
+                                int i = 0;
+                                foreach (var item in Model)
                                 {
-                                    int i = 0;
-                                    foreach (var item in Model)
+                                    i++;
+                                    if (ViewBag.Id == item.ID)
                                     {
-                                        i++;
-                                        if (ViewBag.Id == item.ID)
-                                        {
-                                            <input type="hidden" id="currentID" name="currentID" value="@ViewBag.Id" />
-                                            <tr style="background-color: #eee;">
-                                                <td>@i</td>
-                                                <td>@item.CourseID</td>
-                                                <td>@item.CMID</td>
-                                                <td>@item.PVCID</td>
-                                                <td>@item.DLTID</td>
-                                                <td>@item.Created</td>
-                                                <td>@item.Status</td>
-                                                <td><i style="color: #fff;" class="fa fa-arrow-right"></i></td>
-                                            </tr>
-                                        }
-                                        else
-                                        {
-
-                                            <tr class="trdefault">
-                                                <td><a href="@Url.Action("Index", new {id = item.ID})"></a>@i</td>
-                                                <td>@item.CourseID</td>
-                                                <td>@item.CMID</td>
-                                                <td>@item.PVCID</td>
-                                                <td>@item.DLTID</td>
-                                                <td>@item.Created</td>
-                                                <td>@item.Status</td>
-                                                <td></td>
-                                            </tr>
-
-                                        }
-
-                                    }
-                                    if (ViewBag.Id == -1)
-                                    {
+                                        <input type="hidden" id="currentID" name="currentID" value="@ViewBag.Id" />
                                         <tr style="background-color: #eee;">
-                                            <td colspan="4">Report Creating</td>
+                                            <td>@i</td>
+                                            <td>@item.CourseID</td>
+                                            <td>@item.CMID</td>
+                                            <td>@item.PVCID</td>
+                                            <td>@item.DLTID</td>
+                                            <td>@item.Created</td>
+                                            @if (@item.Status == 1 || @item.Status == 2)
+                                            {
+                                                <td>PENDING</td>
+                                            }
+                                            else
+                                            {
+                                                <td>APPROVED</td>
+                                            }
+
                                             <td><i style="color: #fff;" class="fa fa-arrow-right"></i></td>
                                         </tr>
                                     }
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                    @{
-                        if (ViewBag.groupid == 5)
-                        {
-                            <a href="javascript:void(0)" onclick="showModalCreateReport();" class="btn btn-outline btn-danger btn-lg btn-block">Create report</a>
-                        }
-                        if (ViewBag.groupid == 4)
-                        {
-                            <a href="javascript:void(0)" onclick="approveReport(2);" class="btn btn-outline btn-danger btn-lg btn-block">Approve</a>
-                        }
-                        if (ViewBag.groupid == 3)
-                        {
-                            <a href="javascript:void(0)" onclick="approveReport(3);" class="btn btn-outline btn-danger btn-lg btn-block">Approve</a>
-                        }
-                        if (ViewBag.groupid == 2)
-                        {
-                            <a href="javascript:void(0)" onclick="showModalCommentReport(@ViewBag.Id);" class="btn btn-outline btn-danger btn-lg btn-block">Comment</a>
-                        }
-                    }
-                </div>
-                <!-- /.panel-body -->
-            </div>
-            <!-- /.panel -->
-        </div>
-        <div class="col-lg-6">
-            @if (ViewBag.Id != null)
-            {
-                @Html.Action("Details", new { id = ViewBag.Id })
-            }
+                                    else
+                                    {
 
+                                        <tr class="trdefault">
+                                            <td><a href="@Url.Action("Index", new {id = item.ID})"></a>@i</td>
+                                            <td>@item.CourseID</td>
+                                            <td>@item.CMID</td>
+                                            <td>@item.PVCID</td>
+                                            <td>@item.DLTID</td>
+                                            <td>@item.Created</td>
+                                            @if (@item.Status == 1 || @item.Status == 2)
+                                            {
+                                                <td>PENDING</td>
+                                            }
+                                            else
+                                            {
+                                                <td>APPROVED</td>
+                                            }
+                                            <td></td>
+                                        </tr>
+
+                                    }
+
+                                }
+                                if (ViewBag.Id == -1)
+                                {
+                                    <tr style="background-color: #eee;">
+                                        <td colspan="4">Report Creating</td>
+                                        <td><i style="color: #fff;" class="fa fa-arrow-right"></i></td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                @{
+                    if (ViewBag.groupid == 5)
+                    {
+                        <a href="javascript:void(0)" onclick="showModalCreateReport();" class="btn btn-outline btn-danger btn-lg btn-block">Create report</a>
+                    }
+                    if (ViewBag.groupid == 4)
+                    {
+                        <a href="javascript:void(0)" onclick="approveReport(2);" class="btn btn-outline btn-danger btn-lg btn-block">Approve</a>
+                    }
+                    if (ViewBag.groupid == 3)
+                    {
+                        <a href="javascript:void(0)" onclick="approveReport(3);" class="btn btn-outline btn-danger btn-lg btn-block">Approve</a>
+                    }
+                    if (ViewBag.groupid == 2)
+                    {
+                        <a href="javascript:void(0)" onclick="showModalCommentReport(@ViewBag.Id);" class="btn btn-outline btn-danger btn-lg btn-block">Comment</a>
+                    }
+                }
+            </div>
+            <!-- /.panel-body -->
         </div>
+        <!-- /.panel -->
+    </div>
+    <div class="col-lg-6">
+        @if (ViewBag.Id != null)
+            {
+            @Html.Action("Details", new { id = ViewBag.Id })
+        }
 
     </div>
 
-    <div id="modal-create-report" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="gridSystemModalLabel">Create Report</h4>
+</div>
+
+<div id="modal-create-report" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Create Report</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">Select Course</div>
+                    <div class="col-md-8"><select class="form-control" id="course" name="course"></select></div>
                 </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-4">Select Course</div>
-                        <div class="col-md-8"><select class="form-control" id="course" name="course"></select></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" onclick="submitReport()">Submit</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="modal-comment-report" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Comment Report</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">Comment</div>
+                    <div class="col-md-8">
+                        <textarea id="comment-content" style="width: 100%;height: 200px"></textarea>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger" onclick="submitReport()">Submit</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-
-    <div id="modal-comment-report" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="gridSystemModalLabel">Comment Report</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-4">Comment</div>
-                        <div class="col-md-8">
-                            <textarea id="comment-content" style="width: 100%;height: 200px"></textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger" onclick="submitComment()">Submit</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" onclick="submitComment()">Submit</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 
-    @section scripts{
-        <script>
+@section scripts{
+    <script>
             $(document).ready(function () {
                 $.ajax({
                     method: "GET",
@@ -235,5 +251,5 @@
                     }
                 });
             }
-        </script>
-    }
+    </script>
+}

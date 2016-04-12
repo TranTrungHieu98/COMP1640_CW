@@ -166,26 +166,26 @@ namespace CMSCMV5.Areas.Admin.Controllers
             {
                 using (var db = new Entities())
                 {
-
-
-                    var emailOfCl = GetEmailLogin(report.CLID);
-                    //var emailOfCM = GetEmailLogin(report.CMID);
-                    //var emailOfPVC = GetEmailLogin(report.PVCID);
                     var update = db.Reports.FirstOrDefault(x => x.ID == id);
+
+                    var emailOfCl = GetEmailLogin(update.CLID);
+                    var emailOfCM = GetEmailLogin(update.CMID);
+                    var emailOfPVC = GetEmailLogin(update.PVCID);
+
                     if (update != null)
                     {
                         update.Status = status;
                         db.SaveChanges();
                         MailSender mailSender = new MailSender();
                         mailSender.sendMail(emailOfCl, "Check Report", "Report was Approve", "gmail");
-                        //mailSender.sendMail("nguyenvannam19942802@gmail.com", "Check Report", "Report was Approve", "gmail");
-                        //mailSender.sendMail("nguyenvannam19942802@gmail.com", "Check Report", "Report was Approve", "gmail");
+                        mailSender.sendMail(emailOfCM, "Check Report", "Report was Approve", "gmail");
+                        mailSender.sendMail(emailOfPVC, "Check Report", "Report was Approve", "gmail");
                         return Json(new { status = true }, JsonRequestBehavior.AllowGet);
                     }
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
                 return Json(new { status = false }, JsonRequestBehavior.AllowGet);
             }
