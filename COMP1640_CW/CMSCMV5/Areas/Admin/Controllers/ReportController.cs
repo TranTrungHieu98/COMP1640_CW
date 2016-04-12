@@ -247,29 +247,11 @@ namespace CMSCMV5.Areas.Admin.Controllers
                     {
                         update.Status = status;
                         db.SaveChanges();
-<<<<<<< HEAD
                         MailSender mailSender = new MailSender();
                         mailSender.sendMail(emailOfCl, "Check Report", "Report was Approve", "gmail");
                         mailSender.sendMail(emailOfCM, "Check Report", "Report was Approve", "gmail");
                         mailSender.sendMail(emailOfPVC, "Check Report", "Report was Approve", "gmail");
                         return Json(new { status = true }, JsonRequestBehavior.AllowGet);
-=======
-
-                        //call sent mail
-
-                        var pathHtml = Server.MapPath("bodyEmail.html");
-                        var body = System.IO.File.ReadAllText(pathHtml);
-                        body = String.Format(body, "", DateTime.Now.ToString("hh:mm dd-MM-yyyy"), "");
-                        new MailModel().SentMail(new MailModel()
-                        {
-                            Body = body,
-                            From = "Muatheonline.vn <sales@muatheonline.vn>",
-                            Subject = "Thông tin tìm lại mật khẩu mới tại muatheonline.vn",
-                            //To = toEmail
-                        });
-
-                        return Json(new {status = true}, JsonRequestBehavior.AllowGet);
->>>>>>> f5ef81a8dd65ed8c6fc9d0e796bcb3a2dfdba0fc
                     }
                 }
 
