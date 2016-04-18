@@ -194,9 +194,6 @@
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Models\CommentModel.cs" />
     <Compile Include="Areas\Admin\Models\HomeDesignModel.cs" />
-    <Compile Include="Areas\Admin\Models\NewModel.cs" />
-    <Compile Include="Areas\Admin\Models\OrdersModel.cs" />
-    <Compile Include="Areas\Admin\Models\PhotoModel.cs" />
     <Compile Include="Areas\Admin\Models\ServiceModel.cs" />
     <Compile Include="Areas\Admin\Models\TourModel.cs" />
     <Compile Include="Areas\Site\SiteAreaRegistration.cs" />
